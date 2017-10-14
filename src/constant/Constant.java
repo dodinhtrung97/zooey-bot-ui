@@ -11,7 +11,7 @@ public class Constant {
     public static String ZOOEY_BOT_INI = "D:\\Mahidol\\Project\\zooey-bot-ui\\ZooeyBot.ini";
 
     public static final String[] NAVIGATION_ITEMS = new String[]{"General", "Inputs", "Party Selection", "Summons",
-                                                        "Combat", "Dimensional Halo", "Event Mode", "Slave Mode", "Treasure Event Mode",
+                                                        "Combat", "Event Mode", "Slave Mode", "Treasure Event Mode",
                                                         "Solo Coop Mode", "Customized Scheduling", "Dimensional Halo", "Alerting"};
 
     public static final Map<String, String> TREASURE_RAIDS = new LinkedHashMap<String, String>(){{
