@@ -36,8 +36,8 @@ public class Main extends Application {
 //        root.setRight(slaveModeUI.drawMainPane(primaryStage, modelWrapper));
 //        root.setRight(inputUI.drawMainPane(modelWrapper));
 //        root.setRight(combatUI.drawMainPane(primaryStage, modelWrapper));
-//        root.setRight(eventModeUI.drawMainPane(primaryStage, modelWrapper));
-        root.setRight(treasureEventModeUI.drawMainPane(primaryStage, modelWrapper));
+        root.setRight(eventModeUI.drawMainPane(primaryStage, modelWrapper));
+//        root.setRight(treasureEventModeUI.drawMainPane(primaryStage, modelWrapper));
 
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);

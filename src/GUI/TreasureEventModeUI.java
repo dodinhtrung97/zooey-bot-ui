@@ -11,6 +11,8 @@ import model.ModelWrapper;
 import model.TreasureEventMode;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * Created by Trung on 10/14/2017.
@@ -28,6 +30,7 @@ public class TreasureEventModeUI {
      * @param modelWrapper
      * @return
      */
+    @SuppressWarnings("Duplicates")
     public VBox drawMainPane(Stage primaryStage, ModelWrapper modelWrapper) {
         TreasureEventMode treasureEventMode = modelWrapper.getTreasureEventMode();
 
@@ -51,7 +54,9 @@ public class TreasureEventModeUI {
         eventLuaScript.setOnAction(e -> {
             treasureEventLua = fileChooser.showOpenDialog(primaryStage);
             if (treasureEventLua != null) {
-                treasureEventLuaPath = treasureEventLua.getAbsolutePath().toString();
+                Path p1 = Paths.get(Constant.ZOOEY_BOT_INI);
+                Path p2 = Paths.get(treasureEventLua.getAbsolutePath());
+                treasureEventLuaPath = p2.relativize(p1).toString();
             }
         });
 
@@ -85,7 +90,9 @@ public class TreasureEventModeUI {
         eventLuaScript.setOnAction(e -> {
             treasureEventNightmareLua = fileChooser.showOpenDialog(primaryStage);
             if (treasureEventNightmareLua != null) {
-                treasureEventNightmareLuaPath = treasureEventNightmareLua.getAbsolutePath().toString();
+                Path p1 = Paths.get(Constant.ZOOEY_BOT_INI);
+                Path p2 = Paths.get(treasureEventNightmareLua.getAbsolutePath());
+                treasureEventNightmareLuaPath = p2.relativize(p1).toString();
             }
         });
 

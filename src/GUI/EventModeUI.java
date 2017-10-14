@@ -1,5 +1,6 @@
 package GUI;
 
+import constant.Constant;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -13,6 +14,8 @@ import model.EventMode;
 import model.ModelWrapper;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * Created by Trung on 10/14/2017.
@@ -30,6 +33,7 @@ public class EventModeUI {
      * @param modelWrapper
      * @return
      */
+    @SuppressWarnings("Duplicates")
     public VBox drawMainPane(Stage primaryStage, ModelWrapper modelWrapper) {
         EventMode eventMode = modelWrapper.getEventMode();
 
@@ -53,7 +57,9 @@ public class EventModeUI {
         eventLuaScript.setOnAction(e -> {
             eventLua = fileChooser.showOpenDialog(primaryStage);
             if (eventLua != null) {
-                eventLuaPath = eventLua.getAbsolutePath().toString();
+                Path p1 = Paths.get(Constant.ZOOEY_BOT_INI);
+                Path p2 = Paths.get(eventLua.getAbsolutePath());
+                eventLuaPath = p2.relativize(p1).toString();
             }
         });
 
@@ -72,7 +78,9 @@ public class EventModeUI {
         nightmareModeLuaScript.setOnAction(e -> {
             nightmareModeLua = fileChooser.showOpenDialog(primaryStage);
             if (nightmareModeLua != null) {
-                nightmareModeLuaPath = nightmareModeLua.getAbsolutePath().toString();
+                Path p1 = Paths.get(Constant.ZOOEY_BOT_INI);
+                Path p2 = Paths.get(nightmareModeLua.getAbsolutePath());
+                nightmareModeLuaPath = p2.relativize(p1).toString();
             }
         });
 

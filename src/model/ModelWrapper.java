@@ -27,8 +27,6 @@ public class ModelWrapper {
 
     private CustomizedScheduling customizedScheduling;
 
-    private Debug debug;
-
     private Alerting alerting;
 
     private DimensionalHalo dimensionalHalo;
@@ -45,7 +43,6 @@ public class ModelWrapper {
         this.treasureEventMode = new TreasureEventMode();
         this.soloCoopMode = new SoloCoopMode();
         this.customizedScheduling = new CustomizedScheduling();
-        this.debug = new Debug();
         this.alerting = new Alerting();
         this.dimensionalHalo = new DimensionalHalo();
     }
@@ -136,14 +133,6 @@ public class ModelWrapper {
 
     public void setCustomizedScheduling(CustomizedScheduling customizedScheduling) {
         this.customizedScheduling = customizedScheduling;
-    }
-
-    public Debug getDebug() {
-        return debug;
-    }
-
-    public void setDebug(Debug debug) {
-        this.debug = debug;
     }
 
     public Alerting getAlerting() {

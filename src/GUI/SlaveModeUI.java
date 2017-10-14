@@ -1,5 +1,6 @@
 package GUI;
 
+import constant.Constant;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -12,6 +13,8 @@ import model.ModelWrapper;
 import model.SlaveMode;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * Created by Trung on 10/14/2017.
@@ -30,6 +33,7 @@ public class SlaveModeUI {
      * @param modelWrapper
      * @return
      */
+    @SuppressWarnings("Duplicates")
     public VBox drawMainPane(Stage primaryStage, ModelWrapper modelWrapper) {
         SlaveMode slaveMode = modelWrapper.getSlaveMode();
 
@@ -46,7 +50,9 @@ public class SlaveModeUI {
         browseMainLua.setOnAction(e -> {
             mainLua = fileChooser.showOpenDialog(primaryStage);
             if (mainLua != null) {
-                mainLuaPath = mainLua.getAbsolutePath().toString();
+                Path p1 = Paths.get(Constant.ZOOEY_BOT_INI);
+                Path p2 = Paths.get(mainLua.getAbsolutePath());
+                mainLuaPath = p2.relativize(p1).toString();
             }
         });
 
@@ -58,7 +64,9 @@ public class SlaveModeUI {
         browseSlaveLua.setOnAction(e -> {
             slaveLua = fileChooser.showOpenDialog(primaryStage);
             if (slaveLua != null) {
-                slaveLuaPath = slaveLua.getAbsolutePath().toString();
+                Path p1 = Paths.get(Constant.ZOOEY_BOT_INI);
+                Path p2 = Paths.get(slaveLua.getAbsolutePath());
+                slaveLuaPath = p2.relativize(p1).toString();
             }
         });
 

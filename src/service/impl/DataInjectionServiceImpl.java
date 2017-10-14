@@ -63,9 +63,6 @@ public class DataInjectionServiceImpl implements DataInjectionService{
             case "CustomizedScheduling":
                 this.injectCustomizedSchedulingData(param, paramValue, modelWrapper);
                 break;
-            case "Debug":
-                this.injectDebugData(param, paramValue, modelWrapper);
-                break;
             case "Alerting":
                 this.injectAlertingData(param, paramValue, modelWrapper);
                 break;
@@ -249,22 +246,6 @@ public class DataInjectionServiceImpl implements DataInjectionService{
         customizedSchedulingDataHandler.setParamValue(paramValue);
 
         customizedSchedulingDataHandler.handle(param);
-    }
-
-    /**
-     * Inject data to Debug Object
-     * @param param
-     * @param paramValue
-     * @param modelWrapper
-     */
-    private void injectDebugData(String param, String paramValue, ModelWrapper modelWrapper) {
-        Debug debug = new Debug();
-
-        DebugDataHandler debugDataHandler = new DebugDataHandler();
-        debugDataHandler.setDebug(debug);
-        debugDataHandler.setParamValue(paramValue);
-
-        debugDataHandler.handle(param);
     }
 
     /**
