@@ -3,6 +3,7 @@ package GUI;
 import constant.Constant;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
@@ -35,9 +36,12 @@ public class TreasureEventModeUI {
         TreasureEventMode treasureEventMode = modelWrapper.getTreasureEventMode();
 
         VBox vBox = new VBox();
-        vBox.setPrefWidth(600);
+        vBox.setPrefWidth(500);
 
         GridPane grid = new GridPane();
+        ColumnConstraints col1 = new ColumnConstraints();
+        col1.setPercentWidth(50);
+        grid.getColumnConstraints().addAll(col1);
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(-7, 10, 5, 10));

@@ -17,6 +17,7 @@ public class Main extends Application {
     private final SidePane sidePane = new SidePane();
 
     private final FileParseService fileParseService = new FileParseServiceImpl();
+    private final GeneralUI generalUI = new GeneralUI();
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -24,13 +25,7 @@ public class Main extends Application {
 
         BorderPane root = new BorderPane();
         root.setLeft(sidePane.drawSidePane(root, primaryStage));
-//        root.setRight(partySelectionUI.drawMainPane(modelWrapper));
-//        root.setRight(generalUI.drawMainPane(modelWrapper));
-//        root.setRight(slaveModeUI.drawMainPane(primaryStage, modelWrapper));
-//        root.setRight(inputUI.drawMainPane(modelWrapper));
-//        root.setRight(combatUI.drawMainPane(primaryStage, modelWrapper));
-//        root.setRight(eventModeUI.drawMainPane(primaryStage, modelWrapper));
-//        root.setRight(treasureEventModeUI.drawMainPane(primaryStage, modelWrapper));
+        root.setRight(generalUI.drawMainPane(ModelWrapperContainer.modelWrapper));
 
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);

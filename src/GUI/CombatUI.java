@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
@@ -32,9 +33,12 @@ public class CombatUI {
         Combat combat = modelWrapper.getCombat();
 
         VBox vBox = new VBox();
-        vBox.setPrefWidth(600);
+        vBox.setPrefWidth(500);
 
         GridPane grid = new GridPane();
+        ColumnConstraints col1 = new ColumnConstraints();
+        col1.setPercentWidth(50);
+        grid.getColumnConstraints().addAll(col1);
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(-7, 10, 5, 10));
@@ -91,7 +95,7 @@ public class CombatUI {
         maxWaitTimeToLoadCharacterSelectionMenu.setText(String.valueOf(combat.getMaxWaitTimeToLoadCharacterSelection()));
 
         grid.add(maxWaitTimeToLoadCharacterSelectionMenu,1,7);
-        grid.add(new Label("Max wait time to load character selection menu (ms):"), 0, 7);
+        grid.add(new Label("Max wait to load character menu (ms):"), 0, 7);
 
         // DoNotWaitForServerResponse
         CheckBox retrieveStatusEffects = new CheckBox();
