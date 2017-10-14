@@ -11,7 +11,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.Combat;
 import model.ModelWrapper;
-import model.Summon;
 
 import java.io.File;
 
