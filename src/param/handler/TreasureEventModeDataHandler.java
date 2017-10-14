@@ -32,7 +32,7 @@ public class TreasureEventModeDataHandler {
         put("NightmareModeScript", () -> treasureEventMode.setNightmareModeScript(paramValue));
         put("NightmareModePreferredSummons", () -> treasureEventMode.setNightmareModePreferredSummon(paramValue));
         put("RerollSummonWhenNoPreferredSummonWasFoundForNightmareMode", () -> treasureEventMode.setRerollForSummon(Boolean.parseBoolean(paramValue)));
-        put("NightmareModeAvailableAtStart", () -> treasureEventMode.setNightmareModePreferredSummon(paramValue));
+        put("NightmareModeAvailableAtStart", () -> treasureEventMode.setNightmareModeAvailableAtStart(Boolean.parseBoolean(paramValue)));
     }};
 
     public void handle(String param) {
