@@ -9,7 +9,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import model.Combat;
 import model.EventMode;
 import model.ModelWrapper;
 

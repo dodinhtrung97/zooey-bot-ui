@@ -18,7 +18,7 @@ public class SidePane {
         VBox vBox = new VBox();
         vBox.setPrefWidth(150);
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < Constant.NAVIGATION_ITEMS.length; i++) {
             vBox.getChildren().add(this.Item(Constant.NAVIGATION_ITEMS[i]));
         }
 

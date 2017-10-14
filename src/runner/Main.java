@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.ModelWrapper;
-import model.PartySelection;
 import service.FileParseService;
 import service.impl.FileParseServiceImpl;
 
@@ -22,6 +21,7 @@ public class Main extends Application {
     private final PartySelectionUI partySelectionUI = new PartySelectionUI();
     private final EventModeUI eventModeUI = new EventModeUI();
     private final CombatUI combatUI = new CombatUI();
+    private final TreasureEventModeUI treasureEventModeUI = new TreasureEventModeUI();
 
     private final FileParseService fileParseService = new FileParseServiceImpl();
 
@@ -36,7 +36,9 @@ public class Main extends Application {
 //        root.setRight(slaveModeUI.drawMainPane(primaryStage, modelWrapper));
 //        root.setRight(inputUI.drawMainPane(modelWrapper));
 //        root.setRight(combatUI.drawMainPane(primaryStage, modelWrapper));
-        root.setRight(eventModeUI.drawMainPane(primaryStage, modelWrapper));
+//        root.setRight(eventModeUI.drawMainPane(primaryStage, modelWrapper));
+        root.setRight(treasureEventModeUI.drawMainPane(primaryStage, modelWrapper));
+
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.setWidth(650);

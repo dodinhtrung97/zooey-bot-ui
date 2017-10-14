@@ -1,5 +1,7 @@
 package model;
 
+import constant.Constant;
+
 /**
  * Created by Trung on 10/14/2017.
  */
@@ -43,5 +45,16 @@ public class TreasureEventMode extends AbstractEvent{
 
     public void setTreasureEventModeScript(String treasureEventModeScript) {
         this.treasureEventModeScript = treasureEventModeScript;
+    }
+
+    public String getNameByDifficulty(String code) {
+
+        String neverHappening = "";
+
+        for (String key: Constant.TREASURE_RAIDS.keySet()) {
+            if (Constant.TREASURE_RAIDS.get(key).equals(code))
+                return key;
+        }
+        return neverHappening;
     }
 }
