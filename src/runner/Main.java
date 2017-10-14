@@ -20,6 +20,7 @@ public class Main extends Application {
     private final SlaveModeUI slaveModeUI = new SlaveModeUI();
     private final InputUI inputUI = new InputUI();
     private final PartySelectionUI partySelectionUI = new PartySelectionUI();
+    private final CombatUI combatUI = new CombatUI();
     private final FileParseService fileParseService = new FileParseServiceImpl();
 
     @Override
@@ -28,10 +29,11 @@ public class Main extends Application {
 
         BorderPane root = new BorderPane();
         root.setLeft(sidePane.drawSidePane());
-        root.setRight(partySelectionUI.drawMainPane(modelWrapper));
+//        root.setRight(partySelectionUI.drawMainPane(modelWrapper));
 //        root.setRight(generalUI.drawMainPane(modelWrapper));
 //        root.setRight(slaveModeUI.drawMainPane(primaryStage, modelWrapper));
 //        root.setRight(inputUI.drawMainPane(modelWrapper));
+        root.setRight(combatUI.drawMainPane(primaryStage, modelWrapper));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.setWidth(650);

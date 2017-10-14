@@ -108,7 +108,6 @@ public class GeneralUI {
         grid.add(useFullEx,1,11);
         grid.add(new Label("Use Full Ex after Potions run out:"), 0, 11);
 
-
         // UseFullElixirsFirst
         CheckBox useFullExFirst = new CheckBox();
         useFullExFirst.setSelected(general.isUseFullExFirst());
