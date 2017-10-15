@@ -1,10 +1,8 @@
 package GUI;
 
+import constant.Constant;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -35,16 +33,17 @@ public class SummonUI {
         grid.setVgap(10);
         grid.setPadding(new Insets(-7, 10, 5, 10));
 
-        // PreferredPartyGroup
+        // PreferredSummon
         TextField preferredSummon = new TextField();
         preferredSummon.setText(String.valueOf(summon.getPreferredSummon()));
 
         grid.add(preferredSummon,1,1);
         grid.add(new Label("Preferred Summons:"), 0, 1);
 
-        // PreferredPartyDeck
-        TextField defaultSummonTab = new TextField();
-        defaultSummonTab.setText(String.valueOf(summon.getDefaultSummonTab()));
+        // DefaultSummonTab
+        ChoiceBox<String> defaultSummonTab = new ChoiceBox<>();
+        defaultSummonTab.getItems().addAll("Fire", "Water", "Earth", "Wind", "Light", "Dark");
+        defaultSummonTab.setValue(summon.getDefaultSummonTab());
 
         grid.add(defaultSummonTab,1,2);
         grid.add(new Label("Default summon tab:"), 0, 2);
@@ -60,7 +59,7 @@ public class SummonUI {
         Button save = new Button();
         save.setText("SAVE");
         save.setPrefSize(180, 40);
-        save.setOnAction(e -> handleSave(modelWrapper, preferredSummon.getText(), defaultSummonTab.getText(),
+        save.setOnAction(e -> handleSave(modelWrapper, preferredSummon.getText(), defaultSummonTab.getValue(),
                                         rerollSummon.isSelected()));
         grid.add(save, 1, 4);
 

@@ -34,7 +34,7 @@ public class Main extends Application {
         primaryStage.setHeight(550);
         primaryStage.setResizable(false);
         primaryStage.setTitle("Zooey Ini Simple UI");
-        primaryStage.getIcons().add(new Image("https://img.fireden.net/vg/image/1460/35/1460352961515.jpg"));
+        primaryStage.getIcons().add(new Image("https://vignette.wikia.nocookie.net/maid-dragon/images/d/df/KannaBox.png/revision/latest?cb=20170224135557.jpg"));
         primaryStage.show();
     }
 
