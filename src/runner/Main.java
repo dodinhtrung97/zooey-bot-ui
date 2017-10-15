@@ -3,6 +3,7 @@ package runner;
 import GUI.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.ModelWrapperContainer;
@@ -33,6 +34,7 @@ public class Main extends Application {
         primaryStage.setHeight(550);
         primaryStage.setResizable(false);
         primaryStage.setTitle("Zooey Ini Simple UI");
+        primaryStage.getIcons().add(new Image("https://img.fireden.net/vg/image/1460/35/1460352961515.jpg"));
         primaryStage.show();
     }
 
