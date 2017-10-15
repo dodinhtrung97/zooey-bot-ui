@@ -70,7 +70,7 @@ public class TreasureEventModeUI {
         // Difficulty
         ChoiceBox<String> difficulty = new ChoiceBox<>();
         difficulty.getItems().addAll(Constant.TREASURE_RAIDS.keySet());
-        difficulty.setValue(treasureEventMode.getNameByDifficulty(treasureEventMode.getDifficulty()));
+        difficulty.setValue(treasureEventMode.getNameByDifficulty());
 
         grid.add(difficulty,1,3);
         grid.add(new Label("Difficulty:"), 0, 3);
@@ -128,7 +128,7 @@ public class TreasureEventModeUI {
         Button save = new Button();
         save.setText("SAVE");
         save.setPrefSize(180, 40);
-        save.setOnAction(e -> handleSave(modelWrapper, nightmareModeURL.getText(), treasureEventLuaPath,
+        save.setOnAction(e -> handleSave(modelWrapper, nightmareModeURL.getText(), treasureEventLuaPath, difficulty.getValue(),
                                         actionPointCost.getText(), nightmareModeURL.getText(), treasureEventNightmareLuaPath,
                                         nightmareModePreferredSummon.getText(), rerollForSummon.isSelected(),
                                         nightmareAtStart.isSelected()));
@@ -144,6 +144,7 @@ public class TreasureEventModeUI {
      * @param modelWrapper
      * @param treasureEventURL
      * @param treasureEventLuaPath
+     * @param difficulty
      * @param actionPointCost
      * @param nightmareModeURL
      * @param nightmareLuaPath
@@ -152,12 +153,13 @@ public class TreasureEventModeUI {
      * @param nightmareAtStart
      */
     private void handleSave(ModelWrapper modelWrapper, String treasureEventURL, String treasureEventLuaPath,
-                            String actionPointCost, String nightmareModeURL, String nightmareLuaPath,
+                            String difficulty, String actionPointCost, String nightmareModeURL, String nightmareLuaPath,
                             String nightmareModePreferredSummon, boolean rerollForSummon, boolean nightmareAtStart) {
         TreasureEventMode treasureEventMode = modelWrapper.getTreasureEventMode();
 
         treasureEventMode.setTreasureEventUrl(treasureEventURL);
         treasureEventMode.setTreasureEventModeScript(treasureEventLuaPath);
+        treasureEventMode.setDifficulty(Constant.TREASURE_RAIDS.get(difficulty));
         treasureEventMode.setActionPointCost(actionPointCost);
         treasureEventMode.setNightmareModeUrl(nightmareModeURL);
         treasureEventMode.setNightmareModeScript(nightmareLuaPath);

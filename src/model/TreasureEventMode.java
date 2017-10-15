@@ -47,12 +47,12 @@ public class TreasureEventMode extends AbstractEvent{
         this.treasureEventModeScript = treasureEventModeScript;
     }
 
-    public String getNameByDifficulty(String code) {
+    public String getNameByDifficulty() {
 
         String neverHappening = "";
 
         for (String key: Constant.TREASURE_RAIDS.keySet()) {
-            if (Constant.TREASURE_RAIDS.get(key).equals(code))
+            if (Constant.TREASURE_RAIDS.get(key).equals(this.getDifficulty()))
                 return key;
         }
         return neverHappening;

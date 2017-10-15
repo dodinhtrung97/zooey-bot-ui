@@ -1,5 +1,6 @@
 package GUI;
 
+import constant.Constant;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.ColumnConstraints;
@@ -36,8 +37,8 @@ public class GeneralUI {
 
         // Language
         ChoiceBox<String> language = new ChoiceBox<>();
-        language.getItems().addAll("jp", "en");
-        language.setValue(general.getLanguage());
+        language.getItems().addAll(Constant.LANGUAGE.keySet());
+        language.setValue(general.getNameByLanguage());
 
         grid.add(language,1,1);
         grid.add(new Label("Language:"), 0, 1);
@@ -174,7 +175,7 @@ public class GeneralUI {
         General general = modelWrapper.getGeneral();
         CountdownTimer countdownTimer = modelWrapper.getCountdownTimer();
 
-        general.setLanguage(language);
+        general.setLanguage(Constant.LANGUAGE.get(language));
         general.setDevToolsDockedOnTheRight(isDockedRight);
         general.setUseViramate(useViramate);
         general.setMaxLoadDelay(Long.parseLong(maxPageLoadDelay));

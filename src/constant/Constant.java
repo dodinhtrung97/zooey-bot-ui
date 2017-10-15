@@ -24,4 +24,9 @@ public class Constant {
         put("Guild War Day 4 NM 95", "gw-day-4-nm-95");
         put("Guild War Day 4 NM 100", "gw-day-4-nm-100");
     }};
+
+    public static final Map<String, String> LANGUAGE = new LinkedHashMap<String, String>(){{
+        put("English", "en");
+        put("Japanese", "jp");
+    }};
 }

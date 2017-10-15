@@ -1,5 +1,7 @@
 package model;
 
+import constant.Constant;
+
 /**
  * Created by Trung on 10/14/2017.
  */
@@ -123,5 +125,15 @@ public class General {
 
     public void setUseFullExFirst(boolean useFullExFirst) {
         this.useFullExFirst = useFullExFirst;
+    }
+
+    public String getNameByLanguage() {
+        String neverHappening = "";
+
+        for (String key: Constant.LANGUAGE.keySet()) {
+            if (Constant.LANGUAGE.get(key).equals(this.getLanguage()))
+                return key;
+        }
+        return neverHappening;
     }
 }
