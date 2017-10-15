@@ -1,6 +1,8 @@
 package param.handler;
 
 import model.PartySelection;
+import service.FileParseService;
+import service.impl.FileParseServiceImpl;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,8 +17,6 @@ public class PartySelectionDataHandler {
 
     private String paramValue;
 
-    private int lineNum;
-
     private List<String> fileContent;
 
     public void setPartySelection(PartySelection partySelection) {
@@ -27,13 +27,11 @@ public class PartySelectionDataHandler {
         this.paramValue = paramValue;
     }
 
-    public void setLineNum(int lineNum) {
-        this.lineNum = lineNum;
-    }
-
     public void setFileContent(List<String> fileContent) {
         this.fileContent = fileContent;
     }
+
+    private final FileParseService fileParseService = new FileParseServiceImpl();
 
     private final Map<String, Runnable> SET_OBJECT = new HashMap<String, Runnable>() {{
         put("PreferredPartyGroup", () -> partySelection.setPreferredPartyGroup(Integer.parseInt(paramValue)));
@@ -42,11 +40,31 @@ public class PartySelectionDataHandler {
         put("PreferredNightmareModePartyDeck", () -> partySelection.setPreferredNightmarePartyDeck(Integer.parseInt(paramValue)));
     }};
 
+    private final Map<String, Runnable> SET_OBJECT_TO_FILE = new HashMap<String, Runnable>() {{
+        put("PreferredPartyGroup", () ->
+                fileParseService.applyData(fileContent, "PreferredPartyGroup",
+                        "PreferredPartyGroup=" + partySelection.getPreferredPartyGroup()));
+        put("PreferredPartyDeck", () ->fileParseService.applyData(fileContent, "PreferredPartyDeck",
+                "PreferredPartyDeck=" + partySelection.getPreferredPartyDeck()));
+        put("PreferredNightmareModePartyGroup", () ->fileParseService.applyData(fileContent, "PreferredNightmareModePartyGroup",
+                "PreferredNightmareModePartyGroup=" + partySelection.getPreferredNightmarePartyGroup()));
+        put("PreferredNightmareModePartyDeck", () ->fileParseService.applyData(fileContent, "PreferredNightmareModePartyDeck",
+                "PreferredNightmareModePartyDeck=" + partySelection.getPreferredNightmarePartyDeck()));
+    }};
+
     public void handleInject(String param) {
         if (!SET_OBJECT.containsKey(param)) {
             System.out.println("Unknown paramater: " + param);
             return;
         }
         SET_OBJECT.get(param).run();
+    }
+
+    public void handleApplyData(String param) {
+        if (!SET_OBJECT_TO_FILE.containsKey(param)) {
+            System.out.println("Unknown paramater: " + param);
+            return;
+        }
+        SET_OBJECT_TO_FILE.get(param).run();
     }
 }
