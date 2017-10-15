@@ -75,7 +75,7 @@ public class TreasureEventModeUI {
             if (treasureEventLua != null) {
                 Path p1 = Paths.get(Constant.ZOOEY_BOT_INI_ABSOLUTE);
                 Path p2 = Paths.get(treasureEventLua.getAbsolutePath());
-                treasureEventLuaPath = p2.relativize(p1).toString();
+                treasureEventLuaPath = p1.relativize(p2).toString();
             }
         });
 
@@ -111,7 +111,7 @@ public class TreasureEventModeUI {
             if (treasureEventNightmareLua != null) {
                 Path p1 = Paths.get(Constant.ZOOEY_BOT_INI_ABSOLUTE);
                 Path p2 = Paths.get(treasureEventNightmareLua.getAbsolutePath());
-                treasureEventNightmareLuaPath = p2.relativize(p1).toString();
+                treasureEventNightmareLuaPath = p1.relativize(p2).toString();
             }
         });
 

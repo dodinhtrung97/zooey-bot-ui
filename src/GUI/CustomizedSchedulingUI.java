@@ -63,7 +63,7 @@ public class CustomizedSchedulingUI {
             if (schedulingLua != null) {
                 Path p1 = Paths.get(Constant.ZOOEY_BOT_INI_ABSOLUTE);
                 Path p2 = Paths.get(schedulingLua.getAbsolutePath());
-                schedulingLuaPath = p2.relativize(p1).toString();
+                schedulingLuaPath = p1.relativize(p2).toString();
             }
         });
 

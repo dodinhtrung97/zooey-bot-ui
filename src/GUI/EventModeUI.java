@@ -78,7 +78,8 @@ public class EventModeUI {
             if (eventLua != null) {
                 Path p1 = Paths.get(Constant.ZOOEY_BOT_INI_ABSOLUTE);
                 Path p2 = Paths.get(eventLua.getAbsolutePath());
-                eventLuaPath = p2.relativize(p1).toString();
+                eventLuaPath = p1.relativize(p2).toString();
+                System.out.println(eventLuaPath);
             }
         });
 
@@ -99,7 +100,7 @@ public class EventModeUI {
             if (nightmareModeLua != null) {
                 Path p1 = Paths.get(Constant.ZOOEY_BOT_INI_ABSOLUTE);
                 Path p2 = Paths.get(nightmareModeLua.getAbsolutePath());
-                nightmareModeLuaPath = p2.relativize(p1).toString();
+                nightmareModeLuaPath = p1.relativize(p2).toString();
             }
         });
 

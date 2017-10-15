@@ -88,7 +88,7 @@ public class CombatUI {
             if (luaFile != null) {
                 Path p1 = Paths.get(Constant.ZOOEY_BOT_INI_ABSOLUTE);
                 Path p2 = Paths.get(luaFile.getAbsolutePath());
-                luaPath = p2.relativize(p1).toString();
+                luaPath = p1.relativize(p2).toString();
             }
         });
 

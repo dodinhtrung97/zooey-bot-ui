@@ -63,7 +63,7 @@ public class SoloCoopModeUI {
             if (soloCoopLua != null) {
                 Path p1 = Paths.get(Constant.ZOOEY_BOT_INI_ABSOLUTE);
                 Path p2 = Paths.get(soloCoopLua.getAbsolutePath());
-                soloCoopLuaPath = p2.relativize(p1).toString();
+                soloCoopLuaPath = p1.relativize(p2).toString();
             }
         });
 
