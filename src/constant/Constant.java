@@ -10,7 +10,7 @@ public class Constant {
 
     public static String ZOOEY_BOT_INI = "D:\\Mahidol\\Project\\zooey-bot-ui\\ZooeyBot.ini";
 
-    public static final String[] NAVIGATION_ITEMS = new String[]{"General", "Inputs", "Party Selection", "Summons",
+    public static final String[] NAVIGATION_ITEMS = new String[]{"Mode Select", "General", "Inputs", "Party Selection", "Summons",
                                                         "Combat", "Event Mode", "Slave Mode", "Treasure Event Mode",
                                                         "Solo Coop Mode", "Customized Scheduling", "Dimensional Halo", "Alerting"};
 

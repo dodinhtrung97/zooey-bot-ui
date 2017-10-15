@@ -18,7 +18,7 @@ public class Main extends Application {
     private final SidePane sidePane = new SidePane();
 
     private final FileParseService fileParseService = new FileParseServiceImpl();
-    private final GeneralUI generalUI = new GeneralUI();
+    private final ModeSelectionUI modeSelectionUI = new ModeSelectionUI();
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -26,7 +26,7 @@ public class Main extends Application {
 
         BorderPane root = new BorderPane();
         root.setLeft(sidePane.drawSidePane(root, primaryStage));
-        root.setRight(generalUI.drawMainPane(ModelWrapperContainer.modelWrapper));
+        root.setRight(modeSelectionUI.drawMainPane(ModelWrapperContainer.modelWrapper));
 
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);

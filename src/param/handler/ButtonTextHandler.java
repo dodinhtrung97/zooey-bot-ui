@@ -31,6 +31,7 @@ public class ButtonTextHandler {
         this.modelWrapper = modelWrapper;
     }
 
+    private final ModeSelectionUI modeSelectionUI = new ModeSelectionUI();
     private final GeneralUI generalUI = new GeneralUI();
     private final SlaveModeUI slaveModeUI = new SlaveModeUI();
     private final SummonUI summonUI = new SummonUI();
@@ -45,6 +46,7 @@ public class ButtonTextHandler {
     private final AlertingUI alertingUI = new AlertingUI();
 
     private final Map<String, Runnable> FUNCTIONS = new HashMap<String, Runnable>() {{
+        put("Mode Select", () -> root.setRight(modeSelectionUI.drawMainPane(modelWrapper)));
         put("General", () -> root.setRight(generalUI.drawMainPane(modelWrapper)));
         put("Inputs", () -> root.setRight(inputUI.drawMainPane(modelWrapper)));
         put("Party Selection", () -> root.setRight(partySelectionUI.drawMainPane(modelWrapper)));
