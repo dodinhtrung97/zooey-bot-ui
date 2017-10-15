@@ -1,5 +1,6 @@
 package GUI;
 
+import constant.Constant;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
@@ -8,11 +9,23 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import model.*;
+import service.DataApplyService;
+import service.FileParseService;
+import service.impl.DataApplyServiceImpl;
+import service.impl.FileParseServiceImpl;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.List;
 
 /**
  * Created by Trung on 10/14/2017.
  */
 public class ModeSelectionUI {
+
+    private final FileParseService fileParseService = new FileParseServiceImpl();
+
+    private final DataApplyService dataApplyService = new DataApplyServiceImpl();
 
     /**
      * Draw Party Selection UI
@@ -99,6 +112,7 @@ public class ModeSelectionUI {
         SoloCoopMode soloCoopMode1 = modelWrapper.getSoloCoopMode();
         CustomizedScheduling customizedScheduling1 = modelWrapper.getCustomizedScheduling();
         SlaveMode slaveMode1 = modelWrapper.getSlaveMode();
+        List<String> fileContent = null;
 
         eventMode1.setEnabled(false);
         treasureEventMode1.setEnabled(false);
@@ -108,8 +122,22 @@ public class ModeSelectionUI {
 
         if (eventMode) eventMode1.setEnabled(true);
         if (treasureEventMode) treasureEventMode1.setEnabled(true);
-        if (soloCoopMode) soloCoopMode1.setEnabled(true);
+        if (soloCoopMode)soloCoopMode1.setEnabled(true);
         if (customizedScheduling) customizedScheduling1.setEnabled(true);
         if (slaveMode) slaveMode1.setEnabled(true);
+
+        try {
+            fileContent = fileParseService.generateFileContentFromIni();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        dataApplyService.applyData(Constant.ENABLE, fileContent, modelWrapper, Constant.MODE_EVENT);
+        dataApplyService.applyData(Constant.ENABLE, fileContent, modelWrapper, Constant.MODE_TREASURE_EVENT);
+        dataApplyService.applyData(Constant.ENABLE, fileContent, modelWrapper, Constant.MODE_SOLO_COOP);
+        dataApplyService.applyData(Constant.ENABLE, fileContent, modelWrapper, Constant.MODE_CUSTOMIZED_SCHEDULING);
+        dataApplyService.applyData(Constant.ACTIVE, fileContent, modelWrapper, Constant.MODE_SLAVE);
     }
 }

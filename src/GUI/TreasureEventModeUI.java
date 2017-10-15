@@ -10,10 +10,17 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.ModelWrapper;
 import model.TreasureEventMode;
+import service.DataApplyService;
+import service.FileParseService;
+import service.impl.DataApplyServiceImpl;
+import service.impl.FileParseServiceImpl;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 /**
  * Created by Trung on 10/14/2017.
@@ -21,9 +28,17 @@ import java.nio.file.Paths;
 public class TreasureEventModeUI {
 
     private final FileChooser fileChooser = new FileChooser();
+
+    private final FileParseService fileParseService = new FileParseServiceImpl();
+
+    private final DataApplyService dataApplyService = new DataApplyServiceImpl();
+
     private File treasureEventLua;
+
     private String treasureEventLuaPath = "";
+
     private File treasureEventNightmareLua;
+
     private String treasureEventNightmareLuaPath = "";
 
     /**
@@ -156,6 +171,7 @@ public class TreasureEventModeUI {
                             String difficulty, String actionPointCost, String nightmareModeURL, String nightmareLuaPath,
                             String nightmareModePreferredSummon, boolean rerollForSummon, boolean nightmareAtStart) {
         TreasureEventMode treasureEventMode = modelWrapper.getTreasureEventMode();
+        List<String> fileContent = null;
 
         treasureEventMode.setTreasureEventUrl(treasureEventURL);
         treasureEventMode.setTreasureEventModeScript(treasureEventLuaPath);
@@ -166,5 +182,18 @@ public class TreasureEventModeUI {
         treasureEventMode.setNightmareModePreferredSummon(nightmareModePreferredSummon);
         treasureEventMode.setRerollForSummon(rerollForSummon);
         treasureEventMode.setNightmareModeAvailableAtStart(nightmareAtStart);
+
+        try {
+            fileContent = fileParseService.generateFileContentFromIni();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Apply data change
+        for (String prefix: Constant.TREASURE_EVENT_PARAMS) {
+            dataApplyService.applyData(prefix, fileContent, modelWrapper, Constant.MODE_TREASURE_EVENT);
+        }
     }
 }

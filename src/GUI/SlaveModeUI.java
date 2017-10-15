@@ -12,10 +12,17 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.ModelWrapper;
 import model.SlaveMode;
+import service.DataApplyService;
+import service.FileParseService;
+import service.impl.DataApplyServiceImpl;
+import service.impl.FileParseServiceImpl;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 /**
  * Created by Trung on 10/14/2017.
@@ -23,9 +30,17 @@ import java.nio.file.Paths;
 public class SlaveModeUI {
 
     private final FileChooser fileChooser = new FileChooser();
+
+    private final FileParseService fileParseService = new FileParseServiceImpl();
+
+    private final DataApplyService dataApplyService = new DataApplyServiceImpl();
+
     private File mainLua;
+
     private File slaveLua;
+
     private String mainLuaPath = "";
+
     private String slaveLuaPath = "";
 
     /**
@@ -106,9 +121,23 @@ public class SlaveModeUI {
     private void handleSave(ModelWrapper modelWrapper, boolean mainAccountFirst,
                             String mainAccountLua, String slaveAccountLua) {
         SlaveMode slaveMode = modelWrapper.getSlaveMode();
+        List<String> fileContent = null;
 
         slaveMode.setMainAccFirst(mainAccountFirst);
         slaveMode.setSlaveAccLua(slaveAccountLua);
         slaveMode.setMainAccLua(mainAccountLua);
+
+        try {
+            fileContent = fileParseService.generateFileContentFromIni();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Apply data change
+        for (String prefix: Constant.SLAVE_MODE_PARAMS) {
+            dataApplyService.applyData(prefix, fileContent, modelWrapper, Constant.MODE_SLAVE);
+        }
     }
 }

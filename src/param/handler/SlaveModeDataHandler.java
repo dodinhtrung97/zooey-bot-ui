@@ -1,5 +1,6 @@
 package param.handler;
 
+import constant.Constant;
 import model.SlaveMode;
 import service.FileParseService;
 import service.impl.FileParseServiceImpl;
@@ -34,25 +35,29 @@ public class SlaveModeDataHandler {
     private final FileParseService fileParseService = new FileParseServiceImpl();
 
     private final Map<String, Runnable> SET_OBJECT = new HashMap<String, Runnable>() {{
-        put("Active", () -> slaveMode.setEnabled(Boolean.parseBoolean(paramValue)));
-        put("MainAccountLuaScript", () -> slaveMode.setMainAccLua(paramValue));
-        put("SlaveLuaScript", () -> slaveMode.setSlaveAccLua(paramValue));
-        put("ProcessMainAccountTurnFirst", () -> slaveMode.setMainAccFirst(Boolean.parseBoolean(paramValue)));
+        put(Constant.ACTIVE, () -> slaveMode.setEnabled(Boolean.parseBoolean(paramValue)));
+        put(Constant.MAIN_LUA_SCRIPT, () -> slaveMode.setMainAccLua(paramValue));
+        put(Constant.SLAVE_LUA_SCRIPT, () -> slaveMode.setSlaveAccLua(paramValue));
+        put(Constant.MAIN_ACCOUNT_FIRST, () -> slaveMode.setMainAccFirst(Boolean.parseBoolean(paramValue)));
     }};
 
     private final Map<String, Runnable> SET_OBJECT_TO_FILE = new HashMap<String, Runnable>() {{
-        put("Active", () ->
-                fileParseService.applyData(fileContent, "Active",
-                        "Active=" + slaveMode.isEnabled()));
-        put("MainAccountLuaScript", () ->
-                fileParseService.applyData(fileContent, "MainAccountLuaScript",
-                        "MainAccountLuaScript=" + slaveMode.getMainAccLua()));
-        put("SlaveLuaScript", () ->
-                fileParseService.applyData(fileContent, "SlaveLuaScript",
-                        "SlaveLuaScript=" + slaveMode.getSlaveAccLua()));
-        put("ProcessMainAccountTurnFirst", () ->
-                fileParseService.applyData(fileContent, "ProcessMainAccountTurnFirst",
-                        "ProcessMainAccountTurnFirst=" + slaveMode.isMainAccFirst()));
+        put(Constant.ACTIVE, () ->
+                fileParseService.applyData(fileContent, Constant.ACTIVE,
+                        Constant.ACTIVE + "=" + slaveMode.isEnabled(),
+                        Constant.MODE_SLAVE));
+        put(Constant.MAIN_LUA_SCRIPT, () ->
+                fileParseService.applyData(fileContent, Constant.MAIN_LUA_SCRIPT,
+                        Constant.MAIN_LUA_SCRIPT + "=" + slaveMode.getMainAccLua(),
+                        Constant.MODE_SLAVE));
+        put(Constant.SLAVE_LUA_SCRIPT, () ->
+                fileParseService.applyData(fileContent, Constant.SLAVE_LUA_SCRIPT,
+                        Constant.SLAVE_LUA_SCRIPT + "=" + slaveMode.getSlaveAccLua(),
+                        Constant.MODE_SLAVE));
+        put(Constant.MAIN_ACCOUNT_FIRST, () ->
+                fileParseService.applyData(fileContent, Constant.MAIN_ACCOUNT_FIRST,
+                        Constant.MAIN_ACCOUNT_FIRST + "=" + slaveMode.isMainAccFirst(),
+                        Constant.MODE_SLAVE));
     }};
 
     public void handleInject(String param) {

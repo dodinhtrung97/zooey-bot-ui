@@ -1,5 +1,6 @@
 package param.handler;
 
+import constant.Constant;
 import model.CountdownTimer;
 import service.FileParseService;
 import service.impl.FileParseServiceImpl;
@@ -34,17 +35,19 @@ public class CountdownTimerDataHandler {
     private final FileParseService fileParseService = new FileParseServiceImpl();
 
     private final Map<String, Runnable> SET_OBJECT = new HashMap<String, Runnable>() {{
-        put("CountdownTimerHorizontalPosition", () -> countdownTimer.setCountdownTimerHorizontalPos(Integer.parseInt(paramValue)));
-        put("CountdownTimerVerticalPosition", () -> countdownTimer.setCountdownTimerVerticalPos(Integer.parseInt(paramValue)));
+        put(Constant.COUNTDOWN_HORIZONTAL, () -> countdownTimer.setCountdownTimerHorizontalPos(Integer.parseInt(paramValue)));
+        put(Constant.COUNTDOWN_VERTICAL, () -> countdownTimer.setCountdownTimerVerticalPos(Integer.parseInt(paramValue)));
     }};
 
     private final Map<String, Runnable> SET_OBJECT_TO_FILE = new HashMap<String, Runnable>() {{
-        put("CountdownTimerHorizontalPosition", () ->
-                fileParseService.applyData(fileContent, "CountdownTimerHorizontalPosition",
-                        "CountdownTimerHorizontalPosition=" + countdownTimer.getCountdownTimerHorizontalPos()));
-        put("CountdownTimerVerticalPosition", () ->
-                fileParseService.applyData(fileContent, "CountdownTimerVerticalPosition",
-                        "CountdownTimerVerticalPosition=" + countdownTimer.getCountdownTimerVerticalPos()));
+        put(Constant.COUNTDOWN_HORIZONTAL, () ->
+                fileParseService.applyData(fileContent, Constant.COUNTDOWN_HORIZONTAL,
+                        Constant.COUNTDOWN_HORIZONTAL + "=" + countdownTimer.getCountdownTimerHorizontalPos(),
+                        Constant.MODE_GENERAL));
+        put(Constant.COUNTDOWN_VERTICAL, () ->
+                fileParseService.applyData(fileContent, Constant.COUNTDOWN_VERTICAL,
+                        Constant.COUNTDOWN_VERTICAL + "=" + countdownTimer.getCountdownTimerVerticalPos(),
+                        Constant.MODE_GENERAL));
     }};
 
     public void handleInject(String param) {

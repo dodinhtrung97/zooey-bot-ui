@@ -1,5 +1,6 @@
 package param.handler;
 
+import constant.Constant;
 import model.SoloCoopMode;
 import service.FileParseService;
 import service.impl.FileParseServiceImpl;
@@ -34,15 +35,17 @@ public class SoloCoopModeDataHandler {
     private final FileParseService fileParseService = new FileParseServiceImpl();
 
     private final Map<String, Runnable> SET_OBJECT = new HashMap<String, Runnable>() {{
-        put("Enabled", () -> soloCoopMode.setEnabled(Boolean.parseBoolean(paramValue)));
-        put("LuaScript", () -> soloCoopMode.setLuaScript(paramValue));
+        put(Constant.ENABLE, () -> soloCoopMode.setEnabled(Boolean.parseBoolean(paramValue)));
+        put(Constant.LUA_SCRIPT, () -> soloCoopMode.setLuaScript(paramValue));
     }};
 
     private final Map<String, Runnable> SET_OBJECT_TO_FILE = new HashMap<String, Runnable>() {{
-        put("Enabled", () ->
-                fileParseService.applyData(fileContent, "Enabled", "Enabled=" + soloCoopMode.isEnabled()));
-        put("LuaScript", () ->
-                fileParseService.applyData(fileContent, "LuaScript", "LuaScript=" + soloCoopMode.getLuaScript()));
+        put(Constant.ENABLE, () ->
+                fileParseService.applyData(fileContent, Constant.ENABLE, Constant.ENABLE + "=" + soloCoopMode.isEnabled(),
+                        Constant.MODE_SOLO_COOP));
+        put(Constant.LUA_SCRIPT, () ->
+                fileParseService.applyData(fileContent, Constant.LUA_SCRIPT, Constant.LUA_SCRIPT + "=" + soloCoopMode.getLuaScript(),
+                        Constant.MODE_SOLO_COOP));
     }};
 
     public void handleInject(String param) {

@@ -1,5 +1,7 @@
 package param.handler;
 
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
+import constant.Constant;
 import model.Input;
 import service.FileParseService;
 import service.impl.FileParseServiceImpl;
@@ -34,32 +36,38 @@ public class InputDataHandler {
     private final FileParseService fileParseService = new FileParseServiceImpl();
 
     private final Map<String, Runnable> SET_OBJECT = new HashMap<String, Runnable>() {{
-        put("DelayInMsBetweenMouseDownAndUp", () -> input.setDelayBetweenMouseDownAndUp(Long.parseLong(paramValue)));
-        put("RandomDelayInMsBetweenMouseDownAndUp", () -> input.setRandomDelayBetweenDownAndUp(Long.parseLong(paramValue)));
-        put("MouseSpeed", () -> input.setMouseSpeed(Long.parseLong(paramValue)));
-        put("MouseScrollSpeed", () -> input.setMouseScrollSpeed(Long.parseLong(paramValue)));
-        put("ExitKeyCode", () -> input.setExitKeyCode(Long.parseLong(paramValue)));
-        put("WaitTimeInMsBeforeClickInput", () -> input.setWaitTimeBeforeClickInput(Long.parseLong(paramValue)));
+        put(Constant.DELAY_MOUSE_UP_DOWN, () -> input.setDelayBetweenMouseDownAndUp(Long.parseLong(paramValue)));
+        put(Constant.RANDOM_DELAY_MOUSE_UP_DOWN, () -> input.setRandomDelayBetweenDownAndUp(Long.parseLong(paramValue)));
+        put(Constant.MOUSE_SPEED, () -> input.setMouseSpeed(Long.parseLong(paramValue)));
+        put(Constant.MOUSE_SCROLL_SPEED, () -> input.setMouseScrollSpeed(Long.parseLong(paramValue)));
+        put(Constant.EXIT_KEY_CODE, () -> input.setExitKeyCode(Long.parseLong(paramValue)));
+        put(Constant.WAIT_TIME_BEFORE_CLICK_INPUT, () -> input.setWaitTimeBeforeClickInput(Long.parseLong(paramValue)));
     }};
 
     private final Map<String, Runnable> SET_OBJECT_TO_FILE = new HashMap<String, Runnable>() {{
-        put("DelayInMsBetweenMouseDownAndUp", () ->
-                fileParseService.applyData(fileContent, "DelayInMsBetweenMouseDownAndUp",
-                        "DelayInMsBetweenMouseDownAndUp=" + input.getDelayBetweenMouseDownAndUp()));
-        put("RandomDelayInMsBetweenMouseDownAndUp", () ->
-                fileParseService.applyData(fileContent, "RandomDelayInMsBetweenMouseDownAndUp",
-                        "RandomDelayInMsBetweenMouseDownAndUp=" + input.getRandomDelayBetweenDownAndUp()));
-        put("MouseSpeed", () ->
-                fileParseService.applyData(fileContent, "MouseSpeed", "MouseSpeed=" + input.getMouseSpeed()));
-        put("MouseScrollSpeed", () ->
-                fileParseService.applyData(fileContent, "MouseScrollSpeed",
-                        "MouseScrollSpeed=" + input.getMouseScrollSpeed()));
-        put("ExitKeyCode", () ->
-                fileParseService.applyData(fileContent, "ExitKeyCode",
-                        "ExitKeyCode=" + input.getExitKeyCode()));
-        put("WaitTimeInMsBeforeClickInput", () ->
-                fileParseService.applyData(fileContent, "WaitTimeInMsBeforeClickInput",
-                        "WaitTimeInMsBeforeClickInput=" + input.getWaitTimeBeforeClickInput()));
+        put(Constant.DELAY_MOUSE_UP_DOWN, () ->
+                fileParseService.applyData(fileContent, Constant.DELAY_MOUSE_UP_DOWN,
+                        Constant.DELAY_MOUSE_UP_DOWN + "=" + input.getDelayBetweenMouseDownAndUp(),
+                        Constant.MODE_INPUT));
+        put(Constant.RANDOM_DELAY_MOUSE_UP_DOWN, () ->
+                fileParseService.applyData(fileContent, Constant.RANDOM_DELAY_MOUSE_UP_DOWN,
+                        Constant.RANDOM_DELAY_MOUSE_UP_DOWN + "=" + input.getRandomDelayBetweenDownAndUp(),
+                        Constant.MODE_INPUT));
+        put(Constant.MOUSE_SPEED, () ->
+                fileParseService.applyData(fileContent, Constant.MOUSE_SPEED, Constant.MOUSE_SPEED + "=" + input.getMouseSpeed(),
+                        Constant.MODE_INPUT));
+        put(Constant.MOUSE_SCROLL_SPEED, () ->
+                fileParseService.applyData(fileContent, Constant.MOUSE_SCROLL_SPEED,
+                        Constant.MOUSE_SCROLL_SPEED + "=" + input.getMouseScrollSpeed(),
+                        Constant.MODE_INPUT));
+        put(Constant.EXIT_KEY_CODE, () ->
+                fileParseService.applyData(fileContent, Constant.EXIT_KEY_CODE,
+                        Constant.EXIT_KEY_CODE + "=" + input.getExitKeyCode(),
+                        Constant.MODE_INPUT));
+        put(Constant.WAIT_TIME_BEFORE_CLICK_INPUT, () ->
+                fileParseService.applyData(fileContent, Constant.WAIT_TIME_BEFORE_CLICK_INPUT,
+                        Constant.WAIT_TIME_BEFORE_CLICK_INPUT + "=" + input.getWaitTimeBeforeClickInput(),
+                        Constant.MODE_INPUT));
     }};
 
     public void handleInject(String param) {

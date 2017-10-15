@@ -1,5 +1,6 @@
 package GUI;
 
+import constant.Constant;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -9,11 +10,23 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import model.ModelWrapper;
 import model.PartySelection;
+import service.DataApplyService;
+import service.FileParseService;
+import service.impl.DataApplyServiceImpl;
+import service.impl.FileParseServiceImpl;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.List;
 
 /**
  * Created by Trung on 10/14/2017.
  */
 public class PartySelectionUI {
+
+    private final FileParseService fileParseService = new FileParseServiceImpl();
+
+    private final DataApplyService dataApplyService = new DataApplyServiceImpl();
 
     /**
      * Draw Party Selection UI
@@ -86,10 +99,24 @@ public class PartySelectionUI {
     private void handleSave(ModelWrapper modelWrapper, String preferredPartyGroup, String preferredPartyDeck,
                             String preferredNMPartyGroup, String preferredNMPartyDeck) {
         PartySelection partySelection = modelWrapper.getPartySelection();
+        List<String> fileContent = null;
 
         partySelection.setPreferredPartyGroup(Integer.parseInt(preferredPartyGroup));
         partySelection.setPreferredPartyDeck(Integer.parseInt(preferredPartyDeck));
         partySelection.setPreferredNightmarePartyGroup(Integer.parseInt(preferredNMPartyGroup));
         partySelection.setPreferredNightmarePartyDeck(Integer.parseInt(preferredNMPartyDeck));
+
+        try {
+            fileContent = fileParseService.generateFileContentFromIni();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Apply data change
+        for (String prefix: Constant.PARTY_SELECTION_PARAMS) {
+            dataApplyService.applyData(prefix, fileContent, modelWrapper, Constant.MODE_PARTY_SELECTION);
+        }
     }
 }

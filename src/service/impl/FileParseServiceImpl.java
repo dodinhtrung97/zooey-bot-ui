@@ -24,7 +24,6 @@ public class FileParseServiceImpl implements FileParseService{
 
     private final LineCheckService lineCheckService = new LineCheckServiceImpl();
     private final DataInjectionService dataInjectionService = new DataInjectionServiceImpl();
-    private final DataApplyService dataApplyService = new DataApplyServiceImpl();
 
     /**
      * Parse zooeybot.ini to object models
@@ -64,15 +63,20 @@ public class FileParseServiceImpl implements FileParseService{
      * Apply data in object to ZooeyBot.ini
      * @param fileContent
      */
-    public void applyData(List<String> fileContent, String prefix, String replaceWith) {
+    public void applyData(List<String> fileContent, String prefix, String replaceWith, String model) {
+
+        boolean isInModel = false;
 
         for (int i = 0; i < fileContent.size(); i++) {
             String currentLine = fileContent.get(i);
 
             if (!lineCheckService.isComment(currentLine) && !currentLine.equals("")) {
-                if (currentLine.contains(prefix)) {
+                if (isInModel && currentLine.contains("["))
+                    isInModel = false;
+                if (currentLine.equals("[" + model + "]"))
+                    isInModel = true;
+                if (currentLine.contains(prefix) && isInModel)
                     fileContent.set(i, replaceWith);
-                }
             }
         }
 
@@ -91,11 +95,10 @@ public class FileParseServiceImpl implements FileParseService{
 
         try {
             fileContent = new ArrayList<>(Files.readAllLines(FileSystems.getDefault()
-                            .getPath(Constant.ZOOEY_BOT_INI_ABSOLUTE), StandardCharsets.UTF_8));
+                    .getPath(Constant.ZOOEY_BOT_INI_ABSOLUTE), StandardCharsets.UTF_8));
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return fileContent;
     }
 }

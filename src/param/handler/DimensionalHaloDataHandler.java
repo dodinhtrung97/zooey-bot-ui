@@ -1,5 +1,7 @@
 package param.handler;
 
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
+import constant.Constant;
 import model.DimensionalHalo;
 import service.FileParseService;
 import service.impl.FileParseServiceImpl;
@@ -34,14 +36,15 @@ public class DimensionalHaloDataHandler {
     private final FileParseService fileParseService = new FileParseServiceImpl();
 
     private final Map<String, Runnable> SET_OBJECT = new HashMap<String, Runnable>() {{
-        put("RetreatWhenNoDimensionalHaloTransformation", () ->
+        put(Constant.RETREAT_WHEN_NO_DIMENSIONAL_HALO_TRANSFORM, () ->
                 dimensionalHalo.setRetreatWhenNoDimensionalHaloTransform(Boolean.parseBoolean(paramValue)));
     }};
 
     private final Map<String, Runnable> SET_OBJECT_TO_FILE = new HashMap<String, Runnable>() {{
-        put("RetreatWhenNoDimensionalHaloTransformation", () ->
-                fileParseService.applyData(fileContent, "RetreatWhenNoDimensionalHaloTransformation",
-                        "RetreatWhenNoDimensionalHaloTransformation=" + dimensionalHalo.isRetreatWhenNoDimensionalHaloTransform()));
+        put(Constant.RETREAT_WHEN_NO_DIMENSIONAL_HALO_TRANSFORM, () ->
+                fileParseService.applyData(fileContent, Constant.RETREAT_WHEN_NO_DIMENSIONAL_HALO_TRANSFORM,
+                        Constant.RETREAT_WHEN_NO_DIMENSIONAL_HALO_TRANSFORM + "=" + dimensionalHalo.isRetreatWhenNoDimensionalHaloTransform(),
+                        Constant.MODE_DIMENSIONAL_HALO));
     }};
 
     public void handleInject(String param) {

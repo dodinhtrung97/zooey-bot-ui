@@ -1,5 +1,6 @@
 package GUI;
 
+import constant.Constant;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -9,11 +10,23 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import model.Input;
 import model.ModelWrapper;
+import service.DataApplyService;
+import service.FileParseService;
+import service.impl.DataApplyServiceImpl;
+import service.impl.FileParseServiceImpl;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.List;
 
 /**
  * Created by Trung on 10/14/2017.
  */
 public class InputUI {
+
+    private final FileParseService fileParseService = new FileParseServiceImpl();
+
+    private final DataApplyService dataApplyService = new DataApplyServiceImpl();
 
     /**
      * Draw Input UI
@@ -103,6 +116,7 @@ public class InputUI {
     private void handleSave(ModelWrapper modelWrapper, String delayBetweenMouseDownAndUp, String randomDelayBetweenMouseDownAndUp,
                             String mouseSpeed, String mouseScollSpeed, String exitKeyCode, String waitTimeBeforeInput) {
         Input input = modelWrapper.getInput();
+        List<String> fileContent = null;
 
         input.setDelayBetweenMouseDownAndUp(Long.parseLong(delayBetweenMouseDownAndUp));
         input.setRandomDelayBetweenDownAndUp(Long.parseLong(randomDelayBetweenMouseDownAndUp));
@@ -110,5 +124,18 @@ public class InputUI {
         input.setMouseScrollSpeed(Long.parseLong(mouseScollSpeed));
         input.setExitKeyCode(Long.parseLong(exitKeyCode));
         input.setWaitTimeBeforeClickInput(Long.parseLong(waitTimeBeforeInput));
+
+        try {
+            fileContent = fileParseService.generateFileContentFromIni();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Apply data change
+        for (String prefix: Constant.INPUT_PARAMS) {
+            dataApplyService.applyData(prefix, fileContent, modelWrapper, Constant.MODE_INPUT);
+        }
     }
 }

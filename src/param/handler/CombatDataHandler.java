@@ -1,5 +1,7 @@
 package param.handler;
 
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
+import constant.Constant;
 import model.Combat;
 import service.FileParseService;
 import service.impl.FileParseServiceImpl;
@@ -34,40 +36,49 @@ public class CombatDataHandler {
     private final FileParseService fileParseService = new FileParseServiceImpl();
 
     private final Map<String, Runnable> SET_OBJECT = new HashMap<String, Runnable>() {{
-        put("MinWaitTimeInMsAfterAttack", () -> combat.setMinWaitTimeAfterAttack(Long.parseLong(paramValue)));
-        put("MinWaitTimeInMsAfterSummon", () -> combat.setMinWaitTimeAfterSummon(Long.parseLong(paramValue)));
-        put("MinWaitTimeInMsAfterAbility", () -> combat.setMinWaitTimeAfterAbility(Long.parseLong(paramValue)));
-        put("LuaScript", () -> combat.setLuaScript(paramValue));
-        put("ReloadPageOnLastBattle", () -> combat.setReloadPage(Boolean.parseBoolean(paramValue)));
-        put("DoNotWaitForServerResponse", () -> combat.setNotWaitForServerResponse(Boolean.parseBoolean(paramValue)));
-        put("MaxWaitTimeToLoadCharacterSelectionMenuInMs", () -> combat.setMaxWaitTimeToLoadCharacterSelection(Long.parseLong(paramValue)));
-        put("RetrieveStatusEffects", () -> combat.setRetrieveStatusEffects(Boolean.parseBoolean(paramValue)));
+        put(Constant.MIN_WAIT_AFTER_ATTACK, () -> combat.setMinWaitTimeAfterAttack(Long.parseLong(paramValue)));
+        put(Constant.MIN_WAIT_AFTER_SUMMON, () -> combat.setMinWaitTimeAfterSummon(Long.parseLong(paramValue)));
+        put(Constant.MIN_WAIT_AFTER_ABILITY, () -> combat.setMinWaitTimeAfterAbility(Long.parseLong(paramValue)));
+        put(Constant.LUA_SCRIPT, () -> combat.setLuaScript(paramValue));
+        put(Constant.RELOAD_ON_LAST_BATTLE, () -> combat.setReloadPage(Boolean.parseBoolean(paramValue)));
+        put(Constant.NOT_WAIT_FOR_SERVER_RESPONSE, () -> combat.setNotWaitForServerResponse(Boolean.parseBoolean(paramValue)));
+        put(Constant.MAX_WAIT_TIME_TO_LOAD_SELECTION, () -> combat.setMaxWaitTimeToLoadCharacterSelection(Long.parseLong(paramValue)));
+        put(Constant.RETRIEVE_STATUS_EFFECT, () -> combat.setRetrieveStatusEffects(Boolean.parseBoolean(paramValue)));
     }};
 
     private final Map<String, Runnable> SET_OBJECT_TO_FILE = new HashMap<String, Runnable>() {{
-        put("MinWaitTimeInMsAfterAttack", () ->
-                fileParseService.applyData(fileContent, "MinWaitTimeInMsAfterAttack",
-                        "MinWaitTimeInMsAfterAttack=" + combat.getMinWaitTimeAfterAttack()));
-        put("MinWaitTimeInMsAfterSummon", () ->
-                fileParseService.applyData(fileContent, "MinWaitTimeInMsAfterSummon",
-                        "MinWaitTimeInMsAfterSummon=" + combat.getMinWaitTimeAfterSummon()));
-        put("MinWaitTimeInMsAfterAbility", () ->
-                fileParseService.applyData(fileContent, "MinWaitTimeInMsAfterAbility",
-                        "MinWaitTimeInMsAfterAbility=" + combat.getMinWaitTimeAfterAbility()));
-        put("LuaScript", () ->
-                fileParseService.applyData(fileContent, "LuaScript", "LuaScript=" + combat.getLuaScript()));
-        put("ReloadPageOnLastBattle", () ->
-                fileParseService.applyData(fileContent, "ReloadPageOnLastBattle",
-                        "ReloadPageOnLastBattle=" + combat.isReloadPage()));
-        put("DoNotWaitForServerResponse", () ->
-                fileParseService.applyData(fileContent, "DoNotWaitForServerResponse",
-                        "DoNotWaitForServerResponse=" + combat.isNotWaitForServerResponse()));
-        put("MaxWaitTimeToLoadCharacterSelectionMenuInMs", () ->
-                fileParseService.applyData(fileContent, "MaxWaitTimeToLoadCharacterSelectionMenuInMs",
-                        "MaxWaitTimeToLoadCharacterSelectionMenuInMs=" + combat.getMaxWaitTimeToLoadCharacterSelection()));
-        put("RetrieveStatusEffects", () ->
-                fileParseService.applyData(fileContent, "RetrieveStatusEffects",
-                        "RetrieveStatusEffects=" + combat.isRetrieveStatusEffects()));
+        put(Constant.MIN_WAIT_AFTER_ATTACK, () ->
+                fileParseService.applyData(fileContent, Constant.MIN_WAIT_AFTER_ATTACK,
+                        Constant.MIN_WAIT_AFTER_ATTACK + "=" + combat.getMinWaitTimeAfterAttack(),
+                        Constant.MODE_COMBAT));
+        put(Constant.MIN_WAIT_AFTER_SUMMON, () ->
+                fileParseService.applyData(fileContent, Constant.MIN_WAIT_AFTER_SUMMON,
+                        Constant.MIN_WAIT_AFTER_SUMMON + "=" + combat.getMinWaitTimeAfterSummon(),
+                        Constant.MODE_COMBAT));
+        put(Constant.MIN_WAIT_AFTER_ABILITY, () ->
+                fileParseService.applyData(fileContent, Constant.MIN_WAIT_AFTER_ABILITY,
+                        Constant.MIN_WAIT_AFTER_ABILITY + "=" + combat.getMinWaitTimeAfterAbility(),
+                        Constant.MODE_COMBAT));
+        put(Constant.LUA_SCRIPT, () ->
+                fileParseService.applyData(fileContent, Constant.LUA_SCRIPT,
+                        Constant.LUA_SCRIPT + "=" + combat.getLuaScript(),
+                        Constant.MODE_COMBAT));
+        put(Constant.RELOAD_ON_LAST_BATTLE, () ->
+                fileParseService.applyData(fileContent, Constant.RELOAD_ON_LAST_BATTLE,
+                        Constant.RELOAD_ON_LAST_BATTLE + "=" + combat.isReloadPage(),
+                        Constant.MODE_COMBAT));
+        put(Constant.NOT_WAIT_FOR_SERVER_RESPONSE, () ->
+                fileParseService.applyData(fileContent, Constant.NOT_WAIT_FOR_SERVER_RESPONSE,
+                        Constant.NOT_WAIT_FOR_SERVER_RESPONSE + "=" + combat.isNotWaitForServerResponse(),
+                        Constant.MODE_COMBAT));
+        put(Constant.MAX_WAIT_TIME_TO_LOAD_SELECTION, () ->
+                fileParseService.applyData(fileContent, Constant.MAX_WAIT_TIME_TO_LOAD_SELECTION,
+                        Constant.MAX_WAIT_TIME_TO_LOAD_SELECTION + "=" + combat.getMaxWaitTimeToLoadCharacterSelection(),
+                        Constant.MODE_COMBAT));
+        put(Constant.RETRIEVE_STATUS_EFFECT, () ->
+                fileParseService.applyData(fileContent, Constant.RETRIEVE_STATUS_EFFECT,
+                        Constant.RETRIEVE_STATUS_EFFECT + "=" + combat.isRetrieveStatusEffects(),
+                        Constant.MODE_COMBAT));
     }};
 
     public void handleInject(String param) {

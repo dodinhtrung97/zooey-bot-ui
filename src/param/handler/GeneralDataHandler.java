@@ -1,5 +1,6 @@
 package param.handler;
 
+import constant.Constant;
 import model.General;
 import service.FileParseService;
 import service.impl.FileParseServiceImpl;
@@ -34,56 +35,69 @@ public class GeneralDataHandler {
     private final FileParseService fileParseService = new FileParseServiceImpl();
 
     private final Map<String, Runnable> SET_OBJECT = new HashMap<String, Runnable>() {{
-       put("Language", () -> general.setLanguage(paramValue));
-       put("ChromeDevToolsWindowDockedOnTheRight", () -> general.setDevToolsDockedOnTheRight(Boolean.parseBoolean(paramValue)));
-       put("MaxPageLoadDelayInMsBeforeRetry", () -> general.setMaxLoadDelay(Long.parseLong(paramValue)));
-       put("MaxTriggerDelayInMsBeforeFallback", () -> general.setMaxTriggerDelay(Long.parseLong(paramValue)));
-       put("MaxResponseDelayInMs", () -> general.setMaxResponseDelay(Long.parseLong(paramValue)));
-       put("MaxNumActionRetries", () -> general.setMaxNumAction(Integer.parseInt(paramValue)));
-       put("MinWaitTimeInMsAfterRefresh", () -> general.setMinWaitTime(Long.parseLong(paramValue)));
-       put("TimeLimitInSeconds", () -> general.setTimeLimit(Long.parseLong(paramValue)));
-       put("UseViramate", () -> general.setUseViramate(Boolean.parseBoolean(paramValue)));
-       put("MaxNumPotionsToUse", () -> general.setMaxNumPotion(Long.parseLong(paramValue)));
-       put("UseFullElixirsWhenNoRemainingHalfAPPotions", () -> general.setUseFullEx(Boolean.parseBoolean(paramValue)));
-       put("UseFullElixirsFirst", () -> general.setUseFullExFirst(Boolean.parseBoolean(paramValue)));
+       put(Constant.LANGUAGE, () -> general.setLanguage(paramValue));
+       put(Constant.CHROME_DEV_TOOL, () -> general.setDevToolsDockedOnTheRight(Boolean.parseBoolean(paramValue)));
+       put(Constant.MAX_PAGE_LOAD_BEFORE_RETRY, () -> general.setMaxLoadDelay(Long.parseLong(paramValue)));
+       put(Constant.MAX_TRIGGER_DELAY, () -> general.setMaxTriggerDelay(Long.parseLong(paramValue)));
+       put(Constant.MAX_RESPONSE_DELAY, () -> general.setMaxResponseDelay(Long.parseLong(paramValue)));
+       put(Constant.MAX_NUM_ACTION_RETRIES, () -> general.setMaxNumAction(Integer.parseInt(paramValue)));
+       put(Constant.MIN_WAIT_TIME_AFTER_REFRESH, () -> general.setMinWaitTime(Long.parseLong(paramValue)));
+       put(Constant.TIME_LIMIT, () -> general.setTimeLimit(Long.parseLong(paramValue)));
+       put(Constant.USE_VIRAMATE, () -> general.setUseViramate(Boolean.parseBoolean(paramValue)));
+       put(Constant.MAX_NUM_POTION_TO_USE, () -> general.setMaxNumPotion(Long.parseLong(paramValue)));
+       put(Constant.USE_FULL_EX, () -> general.setUseFullEx(Boolean.parseBoolean(paramValue)));
+       put(Constant.USE_FULL_EX_FIRST, () -> general.setUseFullExFirst(Boolean.parseBoolean(paramValue)));
     }};
 
     private final Map<String, Runnable> SET_OBJECT_TO_FILE = new HashMap<String, Runnable>() {{
-        put("Language", () ->
-                fileParseService.applyData(fileContent, "Language", "Language=" + general.getLanguage()));
-        put("ChromeDevToolsWindowDockedOnTheRight", () ->
-                fileParseService.applyData(fileContent, "ChromeDevToolsWindowDockedOnTheRight",
-                        "ChromeDevToolsWindowDockedOnTheRight=" + general.isDevToolsDockedOnTheRight()));
-        put("MaxPageLoadDelayInMsBeforeRetry", () ->
-                fileParseService.applyData(fileContent, "MaxPageLoadDelayInMsBeforeRetry",
-                        "MaxPageLoadDelayInMsBeforeRetry=" + general.getMaxLoadDelay()));
-        put("MaxTriggerDelayInMsBeforeFallback", () ->
-                fileParseService.applyData(fileContent, "MaxTriggerDelayInMsBeforeFallback",
-                        "MaxTriggerDelayInMsBeforeFallback=" + general.getMaxTriggerDelay()));
-        put("MaxResponseDelayInMs", () ->
-                fileParseService.applyData(fileContent, "MaxResponseDelayInMs",
-                        "MaxResponseDelayInMs=" + general.getMaxResponseDelay()));
-        put("MaxNumActionRetries", () ->
-                fileParseService.applyData(fileContent, "MaxNumActionRetries",
-                        "MaxNumActionRetries=" + general.getMaxNumAction()));
-        put("MinWaitTimeInMsAfterRefresh", () ->
-                fileParseService.applyData(fileContent, "MinWaitTimeInMsAfterRefresh",
-                        "MinWaitTimeInMsAfterRefresh=" + general.getMinWaitTime()));
-        put("TimeLimitInSeconds", () ->
-                fileParseService.applyData(fileContent, "TimeLimitInSeconds",
-                        "TimeLimitInSeconds=" + general.getTimeLimit()));
-        put("UseViramate", () ->
-                fileParseService.applyData(fileContent, "UseViramate",
-                        "UseViramate=" + general.isUseViramate()));
-        put("MaxNumPotionsToUse", () ->
-                fileParseService.applyData(fileContent, "MaxNumPotionsToUse",
-                        "MaxNumPotionsToUse=" + general.getMaxNumPotion()));
-        put("UseFullElixirsWhenNoRemainingHalfAPPotions", () ->
-                fileParseService.applyData(fileContent, "UseFullElixirsWhenNoRemainingHalfAPPotions",
-                        "UseFullElixirsWhenNoRemainingHalfAPPotions=" + general.isUseFullEx()));
-        put("UseFullElixirsFirst", () ->
-                fileParseService.applyData(fileContent, "UseFullElixirsFirst",
-                        "UseFullElixirsFirst=" + general.isUseFullExFirst()));
+        put(Constant.LANGUAGE, () ->
+                fileParseService.applyData(fileContent, Constant.LANGUAGE,
+                        Constant.LANGUAGE + "=" + general.getLanguage(),
+                        Constant.MODE_GENERAL));
+        put(Constant.CHROME_DEV_TOOL, () ->
+                fileParseService.applyData(fileContent, Constant.CHROME_DEV_TOOL,
+                        Constant.CHROME_DEV_TOOL + "=" + general.isDevToolsDockedOnTheRight(),
+                        Constant.MODE_GENERAL));
+        put(Constant.MAX_PAGE_LOAD_BEFORE_RETRY, () ->
+                fileParseService.applyData(fileContent, Constant.MAX_PAGE_LOAD_BEFORE_RETRY,
+                        Constant.MAX_PAGE_LOAD_BEFORE_RETRY + "=" + general.getMaxLoadDelay(),
+                        Constant.MODE_GENERAL));
+        put(Constant.MAX_TRIGGER_DELAY, () ->
+                fileParseService.applyData(fileContent, Constant.MAX_TRIGGER_DELAY,
+                        Constant.MAX_TRIGGER_DELAY + "=" + general.getMaxTriggerDelay(),
+                        Constant.MODE_GENERAL));
+        put(Constant.MAX_RESPONSE_DELAY, () ->
+                fileParseService.applyData(fileContent, Constant.MAX_RESPONSE_DELAY,
+                        Constant.MAX_RESPONSE_DELAY + "=" + general.getMaxResponseDelay(),
+                        Constant.MODE_GENERAL));
+        put(Constant.MAX_NUM_ACTION_RETRIES, () ->
+                fileParseService.applyData(fileContent, Constant.MAX_NUM_ACTION_RETRIES,
+                        Constant.MAX_NUM_ACTION_RETRIES + "=" + general.getMaxNumAction(),
+                        Constant.MODE_GENERAL));
+        put(Constant.MIN_WAIT_TIME_AFTER_REFRESH, () ->
+                fileParseService.applyData(fileContent, Constant.MIN_WAIT_TIME_AFTER_REFRESH,
+                        Constant.MIN_WAIT_TIME_AFTER_REFRESH + "=" + general.getMinWaitTime(),
+                        Constant.MODE_GENERAL));
+        put(Constant.TIME_LIMIT, () ->
+                fileParseService.applyData(fileContent, Constant.TIME_LIMIT,
+                        Constant.TIME_LIMIT + "=" + general.getTimeLimit(),
+                        Constant.MODE_GENERAL));
+        put(Constant.USE_VIRAMATE, () ->
+                fileParseService.applyData(fileContent, Constant.USE_VIRAMATE,
+                        Constant.USE_VIRAMATE + "=" + general.isUseViramate(),
+                        Constant.MODE_GENERAL));
+        put(Constant.MAX_NUM_POTION_TO_USE, () ->
+                fileParseService.applyData(fileContent, Constant.MAX_NUM_POTION_TO_USE,
+                        Constant.MAX_NUM_POTION_TO_USE + "=" + general.getMaxNumPotion(),
+                        Constant.MODE_GENERAL));
+        put(Constant.USE_FULL_EX, () ->
+                fileParseService.applyData(fileContent, Constant.USE_FULL_EX,
+                        Constant.USE_FULL_EX + "=" + general.isUseFullEx(),
+                        Constant.MODE_GENERAL));
+        put(Constant.USE_FULL_EX_FIRST, () ->
+                fileParseService.applyData(fileContent, Constant.USE_FULL_EX_FIRST,
+                        Constant.USE_FULL_EX_FIRST + "=" + general.isUseFullExFirst(),
+                        Constant.MODE_GENERAL));
     }};
 
     public void handleInject(String param) {

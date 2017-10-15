@@ -8,11 +8,23 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import model.ModelWrapper;
 import model.Summon;
+import service.DataApplyService;
+import service.FileParseService;
+import service.impl.DataApplyServiceImpl;
+import service.impl.FileParseServiceImpl;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.List;
 
 /**
  * Created by Trung on 10/14/2017.
  */
 public class SummonUI {
+
+    private final FileParseService fileParseService = new FileParseServiceImpl();
+
+    private final DataApplyService dataApplyService = new DataApplyServiceImpl();
 
     /**
      * Draw Party Selection UI
@@ -78,9 +90,23 @@ public class SummonUI {
     private void handleSave(ModelWrapper modelWrapper, String preferredSummons, String preferredSummonTab,
                             boolean rerollForSummon) {
         Summon summon = modelWrapper.getSummon();
+        List<String> fileContent = null;
 
         summon.setRerollSummon(rerollForSummon);
         summon.setDefaultSummonTab(preferredSummonTab);
         summon.setPreferredSummon(preferredSummons);
+
+        try {
+            fileContent = fileParseService.generateFileContentFromIni();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Apply data change
+        for (String prefix: Constant.SUMMON_PARAMS) {
+            dataApplyService.applyData(prefix, fileContent, modelWrapper, Constant.MODE_SUMMON);
+        }
     }
 }

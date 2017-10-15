@@ -1,5 +1,6 @@
 package param.handler;
 
+import constant.Constant;
 import model.TreasureEventMode;
 import service.FileParseService;
 import service.impl.FileParseServiceImpl;
@@ -34,47 +35,57 @@ public class TreasureEventModeDataHandler {
     private final FileParseService fileParseService = new FileParseServiceImpl();
 
     private final Map<String, Runnable> SET_OBJECT = new HashMap<String, Runnable>() {{
-        put("Enabled", () -> treasureEventMode.setEnabled(Boolean.parseBoolean(paramValue)));
-        put("TreasureEventUrl", () -> treasureEventMode.setTreasureEventUrl(paramValue));
-        put("Difficulty", () -> treasureEventMode.setDifficulty(paramValue));
-        put("ActionPointCost", () -> treasureEventMode.setActionPointCost(paramValue));
-        put("TreasureEventModeScript", () -> treasureEventMode.setTreasureEventModeScript(paramValue));
-        put("NightmareModeUrl", () -> treasureEventMode.setNightmareModeUrl(paramValue));
-        put("NightmareModeScript", () -> treasureEventMode.setNightmareModeScript(paramValue));
-        put("NightmareModePreferredSummons", () -> treasureEventMode.setNightmareModePreferredSummon(paramValue));
-        put("RerollSummonWhenNoPreferredSummonWasFoundForNightmareMode", () -> treasureEventMode.setRerollForSummon(Boolean.parseBoolean(paramValue)));
-        put("NightmareModeAvailableAtStart", () -> treasureEventMode.setNightmareModeAvailableAtStart(Boolean.parseBoolean(paramValue)));
+        put(Constant.ENABLE, () -> treasureEventMode.setEnabled(Boolean.parseBoolean(paramValue)));
+        put(Constant.TREASURE_EVENT_URL, () -> treasureEventMode.setTreasureEventUrl(paramValue));
+        put(Constant.DIFFICULTY, () -> treasureEventMode.setDifficulty(paramValue));
+        put(Constant.AP_COST, () -> treasureEventMode.setActionPointCost(paramValue));
+        put(Constant.TREASURE_EVENT_LUA_SCRIPT, () -> treasureEventMode.setTreasureEventModeScript(paramValue));
+        put(Constant.NM_URL, () -> treasureEventMode.setNightmareModeUrl(paramValue));
+        put(Constant.NM_LUA_SCRIPT, () -> treasureEventMode.setNightmareModeScript(paramValue));
+        put(Constant.NM_PREFERRED_SUMMON, () -> treasureEventMode.setNightmareModePreferredSummon(paramValue));
+        put(Constant.REROLL_FOR_SUMMON_NM, () -> treasureEventMode.setRerollForSummon(Boolean.parseBoolean(paramValue)));
+        put(Constant.NM_AVAILABLE_AT_START, () -> treasureEventMode.setNightmareModeAvailableAtStart(Boolean.parseBoolean(paramValue)));
     }};
 
     private final Map<String, Runnable> SET_OBJECT_TO_FILE = new HashMap<String, Runnable>() {{
-        put("Enabled", () ->
-                fileParseService.applyData(fileContent, "Enabled", "Enabled=" + treasureEventMode.isEnabled()));
-        put("TreasureEventUrl", () ->
-                fileParseService.applyData(fileContent, "TreasureEventUrl",
-                        "TreasureEventUrl=" + treasureEventMode.getTreasureEventUrl()));
-        put("Difficulty", () ->
-                fileParseService.applyData(fileContent, "Difficulty", "Difficulty=" + treasureEventMode.getDifficulty()));
-        put("ActionPointCost", () ->
-                fileParseService.applyData(fileContent, "ActionPointCost",
-                        "ActionPointCost=" + treasureEventMode.getActionPointCost()));
-        put("TreasureEventModeScript", () ->
-                fileParseService.applyData(fileContent, "TreasureEventModeScript",
-                        "TreasureEventModeScript=" + treasureEventMode.getTreasureEventModeScript()));
-        put("NightmareModeUrl", () ->
-                fileParseService.applyData(fileContent, "NightmareModeUrl",
-                        "NightmareModeUrl=" + treasureEventMode.getNightmareModeUrl()));
-        put("NightmareModeScript", () ->
-                fileParseService.applyData(fileContent, "NightmareModeScript",
-                        "NightmareModeScript=" + treasureEventMode.getNightmareModeScript()));
-        put("NightmareModePreferredSummons", () ->
-                fileParseService.applyData(fileContent, "NightmareModePreferredSummons",
-                        "NightmareModePreferredSummons=" + treasureEventMode.getNightmareModePreferredSummon()));
-        put("RerollSummonWhenNoPreferredSummonWasFoundForNightmareMode", () ->
-                fileParseService.applyData(fileContent, "RerollSummonWhenNoPreferredSummonWasFoundForNightmareMode",
-                        "RerollSummonWhenNoPreferredSummonWasFoundForNightmareMode=" + treasureEventMode.isRerollForSummon()));
-        put("NightmareModeAvailableAtStart", () ->
-                fileParseService.applyData(fileContent, "NightmareModeAvailableAtStart",
-                        "NightmareModeAvailableAtStart=" + treasureEventMode.isNightmareModeAvailableAtStart()));
+        put(Constant.ENABLE, () ->
+                fileParseService.applyData(fileContent, Constant.ENABLE, Constant.ENABLE + "=" + treasureEventMode.isEnabled(),
+                Constant.MODE_TREASURE_EVENT));
+        put(Constant.TREASURE_EVENT_URL, () ->
+                fileParseService.applyData(fileContent, Constant.TREASURE_EVENT_URL,
+                        Constant.TREASURE_EVENT_URL + "=" + treasureEventMode.getTreasureEventUrl(),
+                        Constant.MODE_TREASURE_EVENT));
+        put(Constant.DIFFICULTY, () ->
+                fileParseService.applyData(fileContent, Constant.DIFFICULTY, Constant.DIFFICULTY + "=" + treasureEventMode.getDifficulty(),
+                        Constant.MODE_TREASURE_EVENT));
+        put(Constant.AP_COST, () ->
+                fileParseService.applyData(fileContent, Constant.AP_COST,
+                        Constant.AP_COST + "=" + treasureEventMode.getActionPointCost(),
+                        Constant.MODE_TREASURE_EVENT));
+        put(Constant.TREASURE_EVENT_LUA_SCRIPT, () ->
+                fileParseService.applyData(fileContent, Constant.TREASURE_EVENT_LUA_SCRIPT,
+                        Constant.TREASURE_EVENT_LUA_SCRIPT + "=" + treasureEventMode.getTreasureEventModeScript(),
+                        Constant.MODE_TREASURE_EVENT));
+        put(Constant.NM_URL, () ->
+                fileParseService.applyData(fileContent, Constant.NM_URL,
+                        Constant.NM_URL + "=" + treasureEventMode.getNightmareModeUrl(),
+                        Constant.MODE_TREASURE_EVENT));
+        put(Constant.NM_LUA_SCRIPT, () ->
+                fileParseService.applyData(fileContent, Constant.NM_LUA_SCRIPT,
+                        Constant.NM_LUA_SCRIPT + "=" + treasureEventMode.getNightmareModeScript(),
+                        Constant.MODE_TREASURE_EVENT));
+        put(Constant.NM_PREFERRED_SUMMON, () ->
+                fileParseService.applyData(fileContent, Constant.NM_PREFERRED_SUMMON,
+                        Constant.NM_PREFERRED_SUMMON + "=" + treasureEventMode.getNightmareModePreferredSummon(),
+                        Constant.MODE_TREASURE_EVENT));
+        put(Constant.REROLL_FOR_SUMMON_NM, () ->
+                fileParseService.applyData(fileContent, Constant.REROLL_FOR_SUMMON_NM,
+                        Constant.REROLL_FOR_SUMMON_NM + "=" + treasureEventMode.isRerollForSummon(),
+                        Constant.MODE_TREASURE_EVENT));
+        put(Constant.NM_AVAILABLE_AT_START, () ->
+                fileParseService.applyData(fileContent, Constant.NM_AVAILABLE_AT_START,
+                        Constant.NM_AVAILABLE_AT_START + "=" + treasureEventMode.isNightmareModeAvailableAtStart(),
+                        Constant.MODE_TREASURE_EVENT));
     }};
 
     public void handleInject(String param) {

@@ -1,5 +1,6 @@
 package param.handler;
 
+import constant.Constant;
 import model.Summon;
 import service.FileParseService;
 import service.impl.FileParseServiceImpl;
@@ -34,21 +35,24 @@ public class SummonDataHandler {
     private final FileParseService fileParseService = new FileParseServiceImpl();
 
     private final Map<String, Runnable> SET_OBJECT = new HashMap<String, Runnable>() {{
-        put("PreferredSummons", () -> summon.setPreferredSummon(paramValue));
-        put("DefaultSummonAttributeTab", () -> summon.setDefaultSummonTab(paramValue));
-        put("RerollSummonWhenNoPreferredSummonWasFound", () -> summon.setRerollSummon(Boolean.parseBoolean(paramValue)));
+        put(Constant.PREFERRED_SUMMONS, () -> summon.setPreferredSummon(paramValue));
+        put(Constant.DEFAULT_SUMMON_TAB, () -> summon.setDefaultSummonTab(paramValue));
+        put(Constant.REROLL_FOR_SUMMON, () -> summon.setRerollSummon(Boolean.parseBoolean(paramValue)));
     }};
 
     private final Map<String, Runnable> SET_OBJECT_TO_FILE = new HashMap<String, Runnable>() {{
-        put("PreferredSummons", () ->
-                fileParseService.applyData(fileContent, "PreferredSummons",
-                        "PreferredSummons=" + summon.getPreferredSummon()));
-        put("DefaultSummonAttributeTab", () ->
-                fileParseService.applyData(fileContent, "DefaultSummonAttributeTab",
-                        "DefaultSummonAttributeTab=" + summon.getDefaultSummonTab()));
-        put("RerollSummonWhenNoPreferredSummonWasFound", () ->
-                fileParseService.applyData(fileContent, "RerollSummonWhenNoPreferredSummonWasFound",
-                        "RerollSummonWhenNoPreferredSummonWasFound=" + summon.isRerollSummon()));
+        put(Constant.PREFERRED_SUMMONS, () ->
+                fileParseService.applyData(fileContent, Constant.PREFERRED_SUMMONS,
+                        Constant.PREFERRED_SUMMONS + "=" + summon.getPreferredSummon(),
+                        Constant.MODE_SUMMON));
+        put(Constant.DEFAULT_SUMMON_TAB, () ->
+                fileParseService.applyData(fileContent, Constant.DEFAULT_SUMMON_TAB,
+                        Constant.DEFAULT_SUMMON_TAB + "=" + summon.getDefaultSummonTab(),
+                        Constant.MODE_SUMMON));
+        put(Constant.REROLL_FOR_SUMMON, () ->
+                fileParseService.applyData(fileContent, Constant.REROLL_FOR_SUMMON,
+                        Constant.REROLL_FOR_SUMMON + "=" + summon.isRerollSummon(),
+                        Constant.MODE_SUMMON));
     }};
 
     public void handleInject(String param) {

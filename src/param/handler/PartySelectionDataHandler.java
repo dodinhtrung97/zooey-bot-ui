@@ -1,5 +1,6 @@
 package param.handler;
 
+import constant.Constant;
 import model.PartySelection;
 import service.FileParseService;
 import service.impl.FileParseServiceImpl;
@@ -34,22 +35,26 @@ public class PartySelectionDataHandler {
     private final FileParseService fileParseService = new FileParseServiceImpl();
 
     private final Map<String, Runnable> SET_OBJECT = new HashMap<String, Runnable>() {{
-        put("PreferredPartyGroup", () -> partySelection.setPreferredPartyGroup(Integer.parseInt(paramValue)));
-        put("PreferredPartyDeck", () -> partySelection.setPreferredPartyDeck(Integer.parseInt(paramValue)));
-        put("PreferredNightmareModePartyGroup", () -> partySelection.setPreferredNightmarePartyGroup(Integer.parseInt(paramValue)));
-        put("PreferredNightmareModePartyDeck", () -> partySelection.setPreferredNightmarePartyDeck(Integer.parseInt(paramValue)));
+        put(Constant.PREFERRED_PARTY_GROUP, () -> partySelection.setPreferredPartyGroup(Integer.parseInt(paramValue)));
+        put(Constant.PREFERRED_PARTY_DECK, () -> partySelection.setPreferredPartyDeck(Integer.parseInt(paramValue)));
+        put(Constant.PREFERRED_NM_PARTY_GROUP, () -> partySelection.setPreferredNightmarePartyGroup(Integer.parseInt(paramValue)));
+        put(Constant.PREFERRED_NM_PARTY_DECK, () -> partySelection.setPreferredNightmarePartyDeck(Integer.parseInt(paramValue)));
     }};
 
     private final Map<String, Runnable> SET_OBJECT_TO_FILE = new HashMap<String, Runnable>() {{
-        put("PreferredPartyGroup", () ->
-                fileParseService.applyData(fileContent, "PreferredPartyGroup",
-                        "PreferredPartyGroup=" + partySelection.getPreferredPartyGroup()));
-        put("PreferredPartyDeck", () ->fileParseService.applyData(fileContent, "PreferredPartyDeck",
-                "PreferredPartyDeck=" + partySelection.getPreferredPartyDeck()));
-        put("PreferredNightmareModePartyGroup", () ->fileParseService.applyData(fileContent, "PreferredNightmareModePartyGroup",
-                "PreferredNightmareModePartyGroup=" + partySelection.getPreferredNightmarePartyGroup()));
-        put("PreferredNightmareModePartyDeck", () ->fileParseService.applyData(fileContent, "PreferredNightmareModePartyDeck",
-                "PreferredNightmareModePartyDeck=" + partySelection.getPreferredNightmarePartyDeck()));
+        put(Constant.PREFERRED_PARTY_GROUP, () ->
+                fileParseService.applyData(fileContent, Constant.PREFERRED_PARTY_GROUP,
+                        Constant.PREFERRED_PARTY_GROUP + "=" + partySelection.getPreferredPartyGroup(),
+                        Constant.MODE_PARTY_SELECTION));
+        put(Constant.PREFERRED_PARTY_DECK, () -> fileParseService.applyData(fileContent, Constant.PREFERRED_PARTY_DECK,
+                Constant.PREFERRED_PARTY_DECK + "=" + partySelection.getPreferredPartyDeck(),
+                Constant.MODE_PARTY_SELECTION));
+        put(Constant.PREFERRED_NM_PARTY_GROUP, () -> fileParseService.applyData(fileContent, Constant.PREFERRED_NM_PARTY_GROUP,
+                Constant.PREFERRED_NM_PARTY_GROUP + "=" + partySelection.getPreferredNightmarePartyGroup(),
+                Constant.MODE_PARTY_SELECTION));
+        put(Constant.PREFERRED_NM_PARTY_DECK, () -> fileParseService.applyData(fileContent, Constant.PREFERRED_NM_PARTY_DECK,
+                Constant.PREFERRED_NM_PARTY_DECK + "=" + partySelection.getPreferredNightmarePartyDeck(),
+                Constant.MODE_PARTY_SELECTION));
     }};
 
     public void handleInject(String param) {

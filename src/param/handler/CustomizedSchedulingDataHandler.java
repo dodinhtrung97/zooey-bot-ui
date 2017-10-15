@@ -1,5 +1,6 @@
 package param.handler;
 
+import constant.Constant;
 import model.CustomizedScheduling;
 import service.FileParseService;
 import service.impl.FileParseServiceImpl;
@@ -34,16 +35,19 @@ public class CustomizedSchedulingDataHandler {
     private final FileParseService fileParseService = new FileParseServiceImpl();
 
     private final Map<String, Runnable> SET_OBJECT = new HashMap<String, Runnable>() {{
-        put("Enabled", () -> customizedScheduling.setEnabled(Boolean.parseBoolean(paramValue)));
-        put("SchedulingLuaScript", () -> customizedScheduling.setLuaScript(paramValue));
+        put(Constant.ENABLE, () -> customizedScheduling.setEnabled(Boolean.parseBoolean(paramValue)));
+        put(Constant.SCHEDULING_LUA_SCRIPT, () -> customizedScheduling.setLuaScript(paramValue));
     }};
 
     private final Map<String, Runnable> SET_OBJECT_TO_FILE = new HashMap<String, Runnable>() {{
-        put("Enabled", () ->
-                fileParseService.applyData(fileContent, "Enabled", "Enabled=" + customizedScheduling.isEnabled()));
-        put("SchedulingLuaScript", () ->
-                fileParseService.applyData(fileContent, "SchedulingLuaScript",
-                        "SchedulingLuaScript=" + customizedScheduling.getLuaScript()));
+        put(Constant.ENABLE, () ->
+                fileParseService.applyData(fileContent, Constant.ENABLE,
+                        Constant.ENABLE + "=" + customizedScheduling.isEnabled(),
+                        Constant.MODE_CUSTOMIZED_SCHEDULING));
+        put(Constant.SCHEDULING_LUA_SCRIPT, () ->
+                fileParseService.applyData(fileContent, Constant.SCHEDULING_LUA_SCRIPT,
+                        Constant.SCHEDULING_LUA_SCRIPT + "=" + customizedScheduling.getLuaScript(),
+                        Constant.MODE_CUSTOMIZED_SCHEDULING));
     }};
 
     public void handleInject(String param) {

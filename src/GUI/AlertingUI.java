@@ -30,8 +30,13 @@ import java.util.List;
 public class AlertingUI {
 
     private final FileChooser fileChooser = new FileChooser();
+
     private final DataApplyService dataApplyService = new DataApplyServiceImpl();
+
+    private final FileParseService fileParseService = new FileParseServiceImpl();
+
     private File notificationSound;
+
     private String notificationSoundPath = "";
 
     /**
@@ -112,7 +117,6 @@ public class AlertingUI {
         alerting.setNumNotification(Long.parseLong(numNotification));
         alerting.setMaxNumSummonSelectionFailuresBeforePlayingSound(Long.parseLong(maxSummonSelection));
 
-        FileParseService fileParseService = new FileParseServiceImpl();
         try {
             fileContent = fileParseService.generateFileContentFromIni();
         } catch (URISyntaxException e) {
@@ -120,8 +124,10 @@ public class AlertingUI {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        dataApplyService.applyData("CaptchaNotificationSoundPath", fileContent, modelWrapper, "Alerting");
-        dataApplyService.applyData("NumNotifications", fileContent, modelWrapper, "Alerting");
-        dataApplyService.applyData("MaxNumSummonSelectionFailuresBeforePlayingSoundNotification", fileContent, modelWrapper, "Alerting");
+
+        // Apply data change
+        for (String prefix: Constant.ALERTING_PARAMS) {
+            dataApplyService.applyData(prefix, fileContent, modelWrapper, Constant.MODE_ALERTING);
+        }
     }
 }

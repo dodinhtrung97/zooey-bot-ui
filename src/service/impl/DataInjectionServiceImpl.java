@@ -1,5 +1,6 @@
 package service.impl;
 
+import constant.Constant;
 import model.*;
 import param.handler.*;
 import service.DataInjectionService;
@@ -29,44 +30,44 @@ public class DataInjectionServiceImpl implements DataInjectionService{
         }
 
         switch (model) {
-            case "General":
+            case Constant.MODE_GENERAL:
                 try {
                     this.injectGeneralData(param, paramValue, modelWrapper);
                 } catch (IllegalArgumentException e) {
                     this.injectCountdownTimerData(param, paramValue, modelWrapper);
                 }
                 break;
-            case "SlaveMode":
+            case Constant.MODE_SLAVE:
                 this.injectSlaveModeData(param, paramValue, modelWrapper);
                 break;
-            case "Inputs":
+            case Constant.MODE_INPUT:
                 this.injectInputData(param, paramValue, modelWrapper);
                 break;
-            case "PartySelection":
+            case Constant.MODE_PARTY_SELECTION:
                 this.injectPartySelectionData(param, paramValue, modelWrapper);
                 break;
-            case "Summons":
+            case Constant.MODE_SUMMON:
                 this.injectSummonData(param, paramValue, modelWrapper);
                 break;
-            case "Combat":
+            case Constant.MODE_COMBAT:
                 this.injectCombatData(param, paramValue, modelWrapper);
                 break;
-            case "EventMode":
+            case Constant.MODE_EVENT:
                 this.injectEventModeData(param, paramValue, modelWrapper);
                 break;
-            case "TreasureEventMode":
+            case Constant.MODE_TREASURE_EVENT:
                 this.injectTreasureEventModeData(param, paramValue, modelWrapper);
                 break;
-            case "SoloCoOpMode":
+            case Constant.MODE_SOLO_COOP:
                 this.injectSoloCoopModeData(param, paramValue, modelWrapper);
                 break;
-            case "CustomizedScheduling":
+            case Constant.MODE_CUSTOMIZED_SCHEDULING:
                 this.injectCustomizedSchedulingData(param, paramValue, modelWrapper);
                 break;
-            case "Alerting":
+            case Constant.MODE_ALERTING:
                 this.injectAlertingData(param, paramValue, modelWrapper);
                 break;
-            case "DimensionalHalo":
+            case Constant.MODE_DIMENSIONAL_HALO:
                 this.injectDimensionalHaloData(param, paramValue, modelWrapper);
                 break;
         }

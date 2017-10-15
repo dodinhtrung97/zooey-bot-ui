@@ -9,11 +9,23 @@ import javafx.scene.layout.VBox;
 import model.CountdownTimer;
 import model.General;
 import model.ModelWrapper;
+import service.DataApplyService;
+import service.FileParseService;
+import service.impl.DataApplyServiceImpl;
+import service.impl.FileParseServiceImpl;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.List;
 
 /**
  * Created by Trung on 10/14/2017.
  */
 public class GeneralUI {
+
+    private final FileParseService fileParseService = new FileParseServiceImpl();
+
+    private final DataApplyService dataApplyService = new DataApplyServiceImpl();
 
     /**
      * Draw General UI
@@ -37,7 +49,7 @@ public class GeneralUI {
 
         // Language
         ChoiceBox<String> language = new ChoiceBox<>();
-        language.getItems().addAll(Constant.LANGUAGE.keySet());
+        language.getItems().addAll(Constant.LANGUAGES.keySet());
         language.setValue(general.getNameByLanguage());
 
         grid.add(language,1,1);
@@ -174,8 +186,9 @@ public class GeneralUI {
                             String countdownTimerHorizontal, String countdownTimerVertical) {
         General general = modelWrapper.getGeneral();
         CountdownTimer countdownTimer = modelWrapper.getCountdownTimer();
+        List<String> fileContent = null;
 
-        general.setLanguage(Constant.LANGUAGE.get(language));
+        general.setLanguage(Constant.LANGUAGES.get(language));
         general.setDevToolsDockedOnTheRight(isDockedRight);
         general.setUseViramate(useViramate);
         general.setMaxLoadDelay(Long.parseLong(maxPageLoadDelay));
@@ -190,5 +203,18 @@ public class GeneralUI {
 
         countdownTimer.setCountdownTimerHorizontalPos(Integer.parseInt(countdownTimerHorizontal));
         countdownTimer.setCountdownTimerVerticalPos(Integer.parseInt(countdownTimerVertical));
+
+        try {
+            fileContent = fileParseService.generateFileContentFromIni();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Apply data change
+        for (String prefix: Constant.GENERAL_PARAMS) {
+            dataApplyService.applyData(prefix, fileContent, modelWrapper, Constant.MODE_GENERAL);
+        }
     }
 }

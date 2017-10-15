@@ -1,5 +1,6 @@
 package service.impl;
 
+import constant.Constant;
 import model.*;
 import param.handler.*;
 import service.DataApplyService;
@@ -15,48 +16,48 @@ public class DataApplyServiceImpl implements DataApplyService{
      * @param param
      * @param fileContent
      * @param modelWrapper
-     * @param model
+     * @param mode
      */
-    public void applyData(String param, List<String> fileContent, ModelWrapper modelWrapper, String model) {
-        switch (model) {
-            case "General":
+    public void applyData(String param, List<String> fileContent, ModelWrapper modelWrapper, String mode) {
+        switch (mode) {
+            case Constant.MODE_GENERAL:
                 try {
                     this.applyGeneralData(param, fileContent, modelWrapper);
                 } catch (IllegalArgumentException e) {
                     this.applyCountdownTimerData(param, fileContent, modelWrapper);
                 }
                 break;
-            case "SlaveMode":
+            case Constant.MODE_SLAVE:
                 this.applySlaveModeData(param, fileContent, modelWrapper);
                 break;
-            case "Inputs":
+            case Constant.MODE_INPUT:
                 this.applyInputData(param, fileContent, modelWrapper);
                 break;
-            case "PartySelection":
+            case Constant.MODE_PARTY_SELECTION:
                 this.applyPartySelectionData(param, fileContent, modelWrapper);
                 break;
-            case "Summons":
+            case Constant.MODE_SUMMON:
                 this.applySummonData(param, fileContent, modelWrapper);
                 break;
-            case "Combat":
+            case Constant.MODE_COMBAT:
                 this.applyCombatData(param, fileContent, modelWrapper);
                 break;
-            case "EventMode":
+            case Constant.MODE_EVENT:
                 this.applyEventModeData(param, fileContent, modelWrapper);
                 break;
-            case "TreasureEventMode":
+            case Constant.MODE_TREASURE_EVENT:
                 this.applyTreasureEventModeData(param, fileContent, modelWrapper);
                 break;
-            case "SoloCoOpMode":
+            case Constant.MODE_SOLO_COOP:
                 this.applySoloCoopModeData(param, fileContent, modelWrapper);
                 break;
-            case "CustomizedScheduling":
+            case Constant.MODE_CUSTOMIZED_SCHEDULING:
                 this.applyCustomizedSchedulingData(param, fileContent, modelWrapper);
                 break;
-            case "Alerting":
+            case Constant.MODE_ALERTING:
                 this.applyAlertingData(param, fileContent, modelWrapper);
                 break;
-            case "DimensionalHalo":
+            case Constant.MODE_DIMENSIONAL_HALO:
                 this.applyDimensionalHaloData(param, fileContent, modelWrapper);
                 break;
         }
@@ -74,7 +75,7 @@ public class DataApplyServiceImpl implements DataApplyService{
         generalDataHandler.setGeneral(general);
         generalDataHandler.setFileContent(fileContent);
 
-        generalDataHandler.handleInject(param);
+        generalDataHandler.handleApplyData(param);
     }
 
     /**
@@ -104,7 +105,7 @@ public class DataApplyServiceImpl implements DataApplyService{
         slaveModeDataHandler.setSlaveMode(slaveMode);
         slaveModeDataHandler.setFileContent(fileContent);
 
-        slaveModeDataHandler.handleInject(param);
+        slaveModeDataHandler.handleApplyData(param);
     }
 
     /**
@@ -119,7 +120,7 @@ public class DataApplyServiceImpl implements DataApplyService{
         inputDataHandler.setInput(input);
         inputDataHandler.setFileContent(fileContent);
 
-        inputDataHandler.handleInject(param);
+        inputDataHandler.handleApplyData(param);
     }
 
     /**
@@ -134,7 +135,7 @@ public class DataApplyServiceImpl implements DataApplyService{
         partySelectionDataHandler.setPartySelection(partySelection);
         partySelectionDataHandler.setFileContent(fileContent);
 
-        partySelectionDataHandler.handleInject(param);
+        partySelectionDataHandler.handleApplyData(param);
     }
 
     /**
@@ -149,7 +150,7 @@ public class DataApplyServiceImpl implements DataApplyService{
         summonDataHandler.setSummon(summon);
         summonDataHandler.setFileContent(fileContent);
 
-        summonDataHandler.handleInject(param);
+        summonDataHandler.handleApplyData(param);
     }
 
     /**
@@ -194,7 +195,7 @@ public class DataApplyServiceImpl implements DataApplyService{
         treasureEventModeDataHandler.setTreasureEventMode(treasureEventMode);
         treasureEventModeDataHandler.setFileContent(fileContent);
 
-        treasureEventModeDataHandler.handleInject(param);
+        treasureEventModeDataHandler.handleApplyData(param);
     }
 
     /**
@@ -209,7 +210,7 @@ public class DataApplyServiceImpl implements DataApplyService{
         soloCoopModeDataHandler.setSoloCoopMode(soloCoopMode);
         soloCoopModeDataHandler.setFileContent(fileContent);
 
-        soloCoopModeDataHandler.handleInject(param);
+        soloCoopModeDataHandler.handleApplyData(param);
     }
 
     /**
@@ -254,6 +255,6 @@ public class DataApplyServiceImpl implements DataApplyService{
         dimensionalHaloDataHandler.setDimensionalHalo(dimensionalHalo);
         dimensionalHaloDataHandler.setFileContent(fileContent);
 
-        dimensionalHaloDataHandler.handleInject(param);
+        dimensionalHaloDataHandler.handleApplyData(param);
     }
 }

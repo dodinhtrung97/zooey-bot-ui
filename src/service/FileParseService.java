@@ -30,6 +30,7 @@ public interface FileParseService {
      * @param fileContent
      * @param prefix
      * @param fullLine
+     * @param model
      */
-    void applyData(List<String> fileContent, String prefix, String fullLine);
+    void applyData(List<String> fileContent, String prefix, String fullLine, String model);
 }

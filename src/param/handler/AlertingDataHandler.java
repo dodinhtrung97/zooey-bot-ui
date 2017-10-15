@@ -1,5 +1,6 @@
 package param.handler;
 
+import constant.Constant;
 import model.Alerting;
 import model.ModelWrapper;
 import model.ModelWrapperContainer;
@@ -36,22 +37,25 @@ public class AlertingDataHandler {
     private final FileParseService fileParseService = new FileParseServiceImpl();
 
     private final Map<String, Runnable> SET_OBJECT = new HashMap<String, Runnable>() {{
-        put("CaptchaNotificationSoundPath", () -> alerting.setCaptchaNotificationSoundPath(paramValue));
-        put("NumNotifications", () -> alerting.setNumNotification(Long.parseLong(paramValue)));
-        put("MaxNumSummonSelectionFailuresBeforePlayingSoundNotification", () ->
+        put(Constant.CAPTCHA_SOUND_PATH, () -> alerting.setCaptchaNotificationSoundPath(paramValue));
+        put(Constant.NUM_NOTIFICATION, () -> alerting.setNumNotification(Long.parseLong(paramValue)));
+        put(Constant.MAX_NUM_SUMMON_BEFORE_PLAYING_SOUND, () ->
                 alerting.setMaxNumSummonSelectionFailuresBeforePlayingSound(Long.parseLong(paramValue)));
     }};
 
     private final Map<String, Runnable> SET_OBJECT_TO_FILE = new HashMap<String, Runnable>() {{
-        put("CaptchaNotificationSoundPath", () ->
-                fileParseService.applyData(fileContent, "CaptchaNotificationSoundPath",
-                        "CaptchaNotificationSoundPath=" + alerting.getCaptchaNotificationSoundPath()));
-        put("NumNotifications", () ->
-                fileParseService.applyData(fileContent, "NumNotifications",
-                        "NumNotifications=" + alerting.getNumNotification()));
-        put("MaxNumSummonSelectionFailuresBeforePlayingSoundNotification", () ->
-                fileParseService.applyData(fileContent, "MaxNumSummonSelectionFailuresBeforePlayingSoundNotification",
-                        "MaxNumSummonSelectionFailuresBeforePlayingSoundNotification=" + alerting.getMaxNumSummonSelectionFailuresBeforePlayingSound()));
+        put(Constant.CAPTCHA_SOUND_PATH, () ->
+                fileParseService.applyData(fileContent, Constant.CAPTCHA_SOUND_PATH,
+                        Constant.CAPTCHA_SOUND_PATH + "=" + alerting.getCaptchaNotificationSoundPath(),
+                        Constant.MODE_ALERTING));
+        put(Constant.NUM_NOTIFICATION, () ->
+                fileParseService.applyData(fileContent, Constant.NUM_NOTIFICATION,
+                        Constant.NUM_NOTIFICATION + "=" + alerting.getNumNotification(),
+                        Constant.MODE_ALERTING));
+        put(Constant.MAX_NUM_SUMMON_BEFORE_PLAYING_SOUND, () ->
+                fileParseService.applyData(fileContent, Constant.MAX_NUM_SUMMON_BEFORE_PLAYING_SOUND,
+                        Constant.MAX_NUM_SUMMON_BEFORE_PLAYING_SOUND + "=" + alerting.getMaxNumSummonSelectionFailuresBeforePlayingSound(),
+                        Constant.MODE_ALERTING));
     }};
 
     public void handleInject(String param) {

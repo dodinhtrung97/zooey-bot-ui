@@ -130,8 +130,8 @@ public class General {
     public String getNameByLanguage() {
         String neverHappening = "";
 
-        for (String key: Constant.LANGUAGE.keySet()) {
-            if (Constant.LANGUAGE.get(key).equals(this.getLanguage()))
+        for (String key: Constant.LANGUAGES.keySet()) {
+            if (Constant.LANGUAGES.get(key).equals(this.getLanguage()))
                 return key;
         }
         return neverHappening;

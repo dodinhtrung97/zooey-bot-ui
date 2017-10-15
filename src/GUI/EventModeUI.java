@@ -13,10 +13,17 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.EventMode;
 import model.ModelWrapper;
+import service.DataApplyService;
+import service.FileParseService;
+import service.impl.DataApplyServiceImpl;
+import service.impl.FileParseServiceImpl;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 /**
  * Created by Trung on 10/14/2017.
@@ -24,9 +31,17 @@ import java.nio.file.Paths;
 public class EventModeUI {
 
     private final FileChooser fileChooser = new FileChooser();
+
+    private final FileParseService fileParseService = new FileParseServiceImpl();
+
+    private final DataApplyService dataApplyService = new DataApplyServiceImpl();
+
     private File eventLua;
+
     private String eventLuaPath = "";
+
     private File nightmareModeLua;
+
     private String nightmareModeLuaPath = "";
 
     /**
@@ -157,6 +172,7 @@ public class EventModeUI {
                             String nightmareModeLuaPath, String eventPageURL, String nightmareModePreferredSummon,
                             boolean rerollForSummon, boolean nightmareAtStart, String waitTimeAfterEventPageIsLoaded) {
         EventMode eventMode = modelWrapper.getEventMode();
+        List<String> fileContent = null;
 
         eventMode.setEventRaidUrl(eventRaidURL);
         eventMode.setEventRaidScript(eventLuaPath);
@@ -167,5 +183,18 @@ public class EventModeUI {
         eventMode.setRerollForSummon(rerollForSummon);
         eventMode.setNightmareModeAvailableAtStart(nightmareAtStart);
         eventMode.setWaitTimeAfterPageLoaded(Long.parseLong(waitTimeAfterEventPageIsLoaded));
+
+        try {
+            fileContent = fileParseService.generateFileContentFromIni();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Apply data change
+        for (String prefix: Constant.EVENT_PARAMS) {
+            dataApplyService.applyData(prefix, fileContent, modelWrapper, Constant.MODE_EVENT);
+        }
     }
 }
