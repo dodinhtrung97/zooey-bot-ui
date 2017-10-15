@@ -1,5 +1,6 @@
 package constant;
 
+import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -8,7 +9,9 @@ import java.util.Map;
  */
 public class Constant {
 
-    public static String ZOOEY_BOT_INI = "ZooeyBot.ini";
+    public static final String ZOOEY_BOT_INI = "ZooeyBot.ini";
+
+    public static final String ZOOEY_BOT_INI_ABSOLUTE = new File(ZOOEY_BOT_INI).getAbsolutePath();
 
     public static final String[] NAVIGATION_ITEMS = new String[]{"Mode Select", "General", "Inputs", "Party Selection", "Summons",
                                                         "Combat", "Event Mode", "Slave Mode", "Treasure Event Mode",

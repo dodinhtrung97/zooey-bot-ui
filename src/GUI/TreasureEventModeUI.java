@@ -58,7 +58,7 @@ public class TreasureEventModeUI {
         eventLuaScript.setOnAction(e -> {
             treasureEventLua = fileChooser.showOpenDialog(primaryStage);
             if (treasureEventLua != null) {
-                Path p1 = Paths.get(Constant.ZOOEY_BOT_INI);
+                Path p1 = Paths.get(Constant.ZOOEY_BOT_INI_ABSOLUTE);
                 Path p2 = Paths.get(treasureEventLua.getAbsolutePath());
                 treasureEventLuaPath = p2.relativize(p1).toString();
             }
@@ -94,7 +94,7 @@ public class TreasureEventModeUI {
         eventLuaScript.setOnAction(e -> {
             treasureEventNightmareLua = fileChooser.showOpenDialog(primaryStage);
             if (treasureEventNightmareLua != null) {
-                Path p1 = Paths.get(Constant.ZOOEY_BOT_INI);
+                Path p1 = Paths.get(Constant.ZOOEY_BOT_INI_ABSOLUTE);
                 Path p2 = Paths.get(treasureEventNightmareLua.getAbsolutePath());
                 treasureEventNightmareLuaPath = p2.relativize(p1).toString();
             }

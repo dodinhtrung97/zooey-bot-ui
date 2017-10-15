@@ -48,7 +48,7 @@ public class CustomizedSchedulingUI {
         eventLuaScript.setOnAction(e -> {
             schedulingLua = fileChooser.showOpenDialog(primaryStage);
             if (schedulingLua != null) {
-                Path p1 = Paths.get(Constant.ZOOEY_BOT_INI);
+                Path p1 = Paths.get(Constant.ZOOEY_BOT_INI_ABSOLUTE);
                 Path p2 = Paths.get(schedulingLua.getAbsolutePath());
                 schedulingLuaPath = p2.relativize(p1).toString();
             }

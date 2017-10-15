@@ -54,7 +54,7 @@ public class SlaveModeUI {
         browseMainLua.setOnAction(e -> {
             mainLua = fileChooser.showOpenDialog(primaryStage);
             if (mainLua != null) {
-                Path p1 = Paths.get(Constant.ZOOEY_BOT_INI);
+                Path p1 = Paths.get(Constant.ZOOEY_BOT_INI_ABSOLUTE);
                 Path p2 = Paths.get(mainLua.getAbsolutePath());
                 mainLuaPath = p2.relativize(p1).toString();
             }
@@ -68,7 +68,7 @@ public class SlaveModeUI {
         browseSlaveLua.setOnAction(e -> {
             slaveLua = fileChooser.showOpenDialog(primaryStage);
             if (slaveLua != null) {
-                Path p1 = Paths.get(Constant.ZOOEY_BOT_INI);
+                Path p1 = Paths.get(Constant.ZOOEY_BOT_INI_ABSOLUTE);
                 Path p2 = Paths.get(slaveLua.getAbsolutePath());
                 slaveLuaPath = p2.relativize(p1).toString();
             }

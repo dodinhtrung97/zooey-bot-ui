@@ -9,7 +9,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import model.EventMode;
 import model.ModelWrapper;
 import model.SoloCoopMode;
 
@@ -49,7 +48,7 @@ public class SoloCoopModeUI {
         eventLuaScript.setOnAction(e -> {
             soloCoopLua = fileChooser.showOpenDialog(primaryStage);
             if (soloCoopLua != null) {
-                Path p1 = Paths.get(Constant.ZOOEY_BOT_INI);
+                Path p1 = Paths.get(Constant.ZOOEY_BOT_INI_ABSOLUTE);
                 Path p2 = Paths.get(soloCoopLua.getAbsolutePath());
                 soloCoopLuaPath = p2.relativize(p1).toString();
             }

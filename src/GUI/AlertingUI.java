@@ -12,7 +12,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.Alerting;
 import model.ModelWrapper;
-import model.SoloCoopMode;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -52,7 +51,7 @@ public class AlertingUI {
         eventLuaScript.setOnAction(e -> {
             notificationSound = fileChooser.showOpenDialog(primaryStage);
             if (notificationSound != null) {
-                Path p1 = Paths.get(Constant.ZOOEY_BOT_INI);
+                Path p1 = Paths.get(Constant.ZOOEY_BOT_INI_ABSOLUTE);
                 Path p2 = Paths.get(notificationSound.getAbsolutePath());
                 notificationSoundPath = p2.relativize(p1).toString();
             }

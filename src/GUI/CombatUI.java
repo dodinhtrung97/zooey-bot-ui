@@ -1,5 +1,6 @@
 package GUI;
 
+import constant.Constant;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -14,6 +15,8 @@ import model.Combat;
 import model.ModelWrapper;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * Created by Trung on 10/14/2017.
@@ -29,6 +32,7 @@ public class CombatUI {
      * @param modelWrapper
      * @return
      */
+    @SuppressWarnings("Duplicates")
     public VBox drawMainPane(Stage primaryStage, ModelWrapper modelWrapper) {
         Combat combat = modelWrapper.getCombat();
 
@@ -69,7 +73,9 @@ public class CombatUI {
         luaScript.setOnAction(e -> {
             luaFile = fileChooser.showOpenDialog(primaryStage);
             if (luaFile != null) {
-                luaPath = luaFile.getAbsolutePath().toString();
+                Path p1 = Paths.get(Constant.ZOOEY_BOT_INI_ABSOLUTE);
+                Path p2 = Paths.get(luaFile.getAbsolutePath());
+                luaPath = p2.relativize(p1).toString();
             }
         });
 
