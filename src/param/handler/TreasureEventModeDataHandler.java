@@ -3,6 +3,7 @@ package param.handler;
 import model.TreasureEventMode;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,6 +15,10 @@ public class TreasureEventModeDataHandler {
 
     private String paramValue;
 
+    private int lineNum;
+
+    private List<String> fileContent;
+
     public void setTreasureEventMode(TreasureEventMode treasureEventMode) {
         this.treasureEventMode = treasureEventMode;
     }
@@ -22,7 +27,15 @@ public class TreasureEventModeDataHandler {
         this.paramValue = paramValue;
     }
 
-    private final Map<String, Runnable> FUNCTIONS = new HashMap<String, Runnable>() {{
+    public void setLineNum(int lineNum) {
+        this.lineNum = lineNum;
+    }
+
+    public void setFileContent(List<String> fileContent) {
+        this.fileContent = fileContent;
+    }
+
+    private final Map<String, Runnable> SET_OBJECT = new HashMap<String, Runnable>() {{
         put("Enabled", () -> treasureEventMode.setEnabled(Boolean.parseBoolean(paramValue)));
         put("TreasureEventUrl", () -> treasureEventMode.setTreasureEventUrl(paramValue));
         put("Difficulty", () -> treasureEventMode.setDifficulty(paramValue));
@@ -35,11 +48,11 @@ public class TreasureEventModeDataHandler {
         put("NightmareModeAvailableAtStart", () -> treasureEventMode.setNightmareModeAvailableAtStart(Boolean.parseBoolean(paramValue)));
     }};
 
-    public void handle(String param) {
-        if (!FUNCTIONS.containsKey(param)) {
+    public void handleInject(String param) {
+        if (!SET_OBJECT.containsKey(param)) {
             System.out.println("Unknown paramater: " + param);
             return;
         }
-        FUNCTIONS.get(param).run();
+        SET_OBJECT.get(param).run();
     }
 }

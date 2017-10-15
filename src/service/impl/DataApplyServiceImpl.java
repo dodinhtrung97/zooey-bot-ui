@@ -2,72 +2,62 @@ package service.impl;
 
 import model.*;
 import param.handler.*;
-import service.DataInjectionService;
+import service.DataApplyService;
+
+import java.util.List;
 
 /**
  * Created by Trung on 10/14/2017.
  */
-public class DataInjectionServiceImpl implements DataInjectionService{
+public class DataApplyServiceImpl implements DataApplyService{
     /**
      * Inject data by object type
-     * @param line
+     * @param param
+     * @param fileContent
      * @param modelWrapper
      * @param model
      */
-    public void injectData(String line, ModelWrapper modelWrapper, String model) {
-
-        String param;
-        String paramValue;
-
-        // In case no paramValue
-        try {
-            param = line.split("=")[0];
-            paramValue = line.split("=")[1];
-        } catch (ArrayIndexOutOfBoundsException e) {
-            param = line.substring(0, line.length()-1);
-            paramValue = "";
-        }
-
+    public void applyData(String param, List<String> fileContent, ModelWrapper modelWrapper, String model) {
         switch (model) {
             case "General":
                 try {
-                    this.injectGeneralData(param, paramValue, modelWrapper);
+                    this.applyGeneralData(param, fileContent, modelWrapper);
                 } catch (IllegalArgumentException e) {
-                    this.injectCountdownTimerData(param, paramValue, modelWrapper);
+                    this.applyCountdownTimerData(param, fileContent, modelWrapper);
                 }
                 break;
             case "SlaveMode":
-                this.injectSlaveModeData(param, paramValue, modelWrapper);
+                this.applySlaveModeData(param, fileContent, modelWrapper);
                 break;
             case "Inputs":
-                this.injectInputData(param, paramValue, modelWrapper);
+                this.applyInputData(param, fileContent, modelWrapper);
                 break;
             case "PartySelection":
-                this.injectPartySelectionData(param, paramValue, modelWrapper);
+                this.applyPartySelectionData(param, fileContent, modelWrapper);
                 break;
             case "Summons":
-                this.injectSummonData(param, paramValue, modelWrapper);
+                this.applySummonData(param, fileContent, modelWrapper);
                 break;
             case "Combat":
-                this.injectCombatData(param, paramValue, modelWrapper);
+                this.applyCombatData(param, fileContent, modelWrapper);
                 break;
             case "EventMode":
-                this.injectEventModeData(param, paramValue, modelWrapper);
+                this.applyEventModeData(param, fileContent, modelWrapper);
                 break;
             case "TreasureEventMode":
-                this.injectTreasureEventModeData(param, paramValue, modelWrapper);
+                this.applyTreasureEventModeData(param, fileContent, modelWrapper);
                 break;
             case "SoloCoOpMode":
-                this.injectSoloCoopModeData(param, paramValue, modelWrapper);
+                this.applySoloCoopModeData(param, fileContent, modelWrapper);
                 break;
             case "CustomizedScheduling":
-                this.injectCustomizedSchedulingData(param, paramValue, modelWrapper);
+                this.applyCustomizedSchedulingData(param, fileContent, modelWrapper);
                 break;
             case "Alerting":
-                this.injectAlertingData(param, paramValue, modelWrapper);
+                this.applyAlertingData(param, fileContent, modelWrapper);
                 break;
             case "DimensionalHalo":
-                this.injectDimensionalHaloData(param, paramValue, modelWrapper);
+                this.applyDimensionalHaloData(param, fileContent, modelWrapper);
                 break;
         }
     }
@@ -75,15 +65,14 @@ public class DataInjectionServiceImpl implements DataInjectionService{
     /**
      * Inject data to General Object
      * @param param
-     * @param paramValue
      * @param modelWrapper
      */
-    private void injectGeneralData(String param, String paramValue, ModelWrapper modelWrapper) {
+    private void applyGeneralData(String param, List<String> fileContent, ModelWrapper modelWrapper) {
         General general = modelWrapper.getGeneral();
 
         GeneralDataHandler generalDataHandler = new GeneralDataHandler();
         generalDataHandler.setGeneral(general);
-        generalDataHandler.setParamValue(paramValue);
+        generalDataHandler.setFileContent(fileContent);
 
         generalDataHandler.handleInject(param);
     }
@@ -91,31 +80,29 @@ public class DataInjectionServiceImpl implements DataInjectionService{
     /**
      * Inject data to CountdownTimer Object
      * @param param
-     * @param paramValue
      * @param modelWrapper
      */
-    private void injectCountdownTimerData(String param, String paramValue, ModelWrapper modelWrapper) {
+    private void applyCountdownTimerData(String param, List<String> fileContent, ModelWrapper modelWrapper) {
         CountdownTimer countdownTimer = modelWrapper.getCountdownTimer();
 
         CountdownTimerDataHandler countdownTimerDataHandler = new CountdownTimerDataHandler();
         countdownTimerDataHandler.setCountdownTimer(countdownTimer);
-        countdownTimerDataHandler.setParamValue(paramValue);
+        countdownTimerDataHandler.setFileContent(fileContent);
 
-        countdownTimerDataHandler.handleInject(param);
+        countdownTimerDataHandler.handleApplyData(param);
     }
 
     /**
      * Inject data to SlaveMode Object
      * @param param
-     * @param paramValue
      * @param modelWrapper
      */
-    private void injectSlaveModeData(String param, String paramValue, ModelWrapper modelWrapper) {
+    private void applySlaveModeData(String param, List<String> fileContent, ModelWrapper modelWrapper) {
         SlaveMode slaveMode = modelWrapper.getSlaveMode();
 
         SlaveModeDataHandler slaveModeDataHandler = new SlaveModeDataHandler();
         slaveModeDataHandler.setSlaveMode(slaveMode);
-        slaveModeDataHandler.setParamValue(paramValue);
+        slaveModeDataHandler.setFileContent(fileContent);
 
         slaveModeDataHandler.handleInject(param);
     }
@@ -123,15 +110,14 @@ public class DataInjectionServiceImpl implements DataInjectionService{
     /**
      * Inject data to Input Object
      * @param param
-     * @param paramValue
      * @param modelWrapper
      */
-    private void injectInputData(String param, String paramValue, ModelWrapper modelWrapper) {
+    private void applyInputData(String param, List<String> fileContent, ModelWrapper modelWrapper) {
         Input input = modelWrapper.getInput();
 
         InputDataHandler inputDataHandler = new InputDataHandler();
         inputDataHandler.setInput(input);
-        inputDataHandler.setParamValue(paramValue);
+        inputDataHandler.setFileContent(fileContent);
 
         inputDataHandler.handleInject(param);
     }
@@ -139,15 +125,14 @@ public class DataInjectionServiceImpl implements DataInjectionService{
     /**
      * Inject data to PartySelection Object
      * @param param
-     * @param paramValue
      * @param modelWrapper
      */
-    private void injectPartySelectionData(String param, String paramValue, ModelWrapper modelWrapper) {
+    private void applyPartySelectionData(String param, List<String> fileContent, ModelWrapper modelWrapper) {
         PartySelection partySelection = modelWrapper.getPartySelection();
 
         PartySelectionDataHandler partySelectionDataHandler = new PartySelectionDataHandler();
         partySelectionDataHandler.setPartySelection(partySelection);
-        partySelectionDataHandler.setParamValue(paramValue);
+        partySelectionDataHandler.setFileContent(fileContent);
 
         partySelectionDataHandler.handleInject(param);
     }
@@ -155,15 +140,14 @@ public class DataInjectionServiceImpl implements DataInjectionService{
     /**
      * Inject data to Summon Object
      * @param param
-     * @param paramValue
      * @param modelWrapper
      */
-    private void injectSummonData(String param, String paramValue, ModelWrapper modelWrapper) {
+    private void applySummonData(String param, List<String> fileContent, ModelWrapper modelWrapper) {
         Summon summon = modelWrapper.getSummon();
 
         SummonDataHandler summonDataHandler = new SummonDataHandler();
         summonDataHandler.setSummon(summon);
-        summonDataHandler.setParamValue(paramValue);
+        summonDataHandler.setFileContent(fileContent);
 
         summonDataHandler.handleInject(param);
     }
@@ -171,47 +155,44 @@ public class DataInjectionServiceImpl implements DataInjectionService{
     /**
      * Inject data to Combat Object
      * @param param
-     * @param paramValue
      * @param modelWrapper
      */
-    private void injectCombatData(String param, String paramValue, ModelWrapper modelWrapper) {
+    private void applyCombatData(String param, List<String> fileContent, ModelWrapper modelWrapper) {
         Combat combat = modelWrapper.getCombat();
 
         CombatDataHandler combatDataHandler = new CombatDataHandler();
         combatDataHandler.setCombat(combat);
-        combatDataHandler.setParamValue(paramValue);
+        combatDataHandler.setFileContent(fileContent);
 
-        combatDataHandler.handleInject(param);
+        combatDataHandler.handleApplyData(param);
     }
 
     /**
      * Inject data to EventMode Object
      * @param param
-     * @param paramValue
      * @param modelWrapper
      */
-    private void injectEventModeData(String param, String paramValue, ModelWrapper modelWrapper) {
+    private void applyEventModeData(String param, List<String> fileContent, ModelWrapper modelWrapper) {
         EventMode eventMode = modelWrapper.getEventMode();
 
         EventModeDataHandler eventModeDataHandler = new EventModeDataHandler();
         eventModeDataHandler.setEventMode(eventMode);
-        eventModeDataHandler.setParamValue(paramValue);
+        eventModeDataHandler.setFileContent(fileContent);
 
-        eventModeDataHandler.handleInject(param);
+        eventModeDataHandler.handleApplyData(param);
     }
 
     /**
      * Inject data to TreasureEventMode Object
      * @param param
-     * @param paramValue
      * @param modelWrapper
      */
-    private void injectTreasureEventModeData(String param, String paramValue, ModelWrapper modelWrapper) {
+    private void applyTreasureEventModeData(String param, List<String> fileContent, ModelWrapper modelWrapper) {
         TreasureEventMode treasureEventMode = modelWrapper.getTreasureEventMode();
 
         TreasureEventModeDataHandler treasureEventModeDataHandler = new TreasureEventModeDataHandler();
         treasureEventModeDataHandler.setTreasureEventMode(treasureEventMode);
-        treasureEventModeDataHandler.setParamValue(paramValue);
+        treasureEventModeDataHandler.setFileContent(fileContent);
 
         treasureEventModeDataHandler.handleInject(param);
     }
@@ -219,15 +200,14 @@ public class DataInjectionServiceImpl implements DataInjectionService{
     /**
      * Inject data to SoloCoopMode Object
      * @param param
-     * @param paramValue
      * @param modelWrapper
      */
-    private void injectSoloCoopModeData(String param, String paramValue, ModelWrapper modelWrapper) {
+    private void applySoloCoopModeData(String param, List<String> fileContent, ModelWrapper modelWrapper) {
         SoloCoopMode soloCoopMode = modelWrapper.getSoloCoopMode();
 
         SoloCoopModeDataHandler soloCoopModeDataHandler = new SoloCoopModeDataHandler();
         soloCoopModeDataHandler.setSoloCoopMode(soloCoopMode);
-        soloCoopModeDataHandler.setParamValue(paramValue);
+        soloCoopModeDataHandler.setFileContent(fileContent);
 
         soloCoopModeDataHandler.handleInject(param);
     }
@@ -235,47 +215,44 @@ public class DataInjectionServiceImpl implements DataInjectionService{
     /**
      * Inject data to CustomizedScheduling Object
      * @param param
-     * @param paramValue
      * @param modelWrapper
      */
-    private void injectCustomizedSchedulingData(String param, String paramValue, ModelWrapper modelWrapper) {
+    private void applyCustomizedSchedulingData(String param, List<String> fileContent, ModelWrapper modelWrapper) {
         CustomizedScheduling customizedScheduling = modelWrapper.getCustomizedScheduling();
 
         CustomizedSchedulingDataHandler customizedSchedulingDataHandler = new CustomizedSchedulingDataHandler();
         customizedSchedulingDataHandler.setCustomizedScheduling(customizedScheduling);
-        customizedSchedulingDataHandler.setParamValue(paramValue);
+        customizedSchedulingDataHandler.setFileContent(fileContent);
 
-        customizedSchedulingDataHandler.handleInject(param);
+        customizedSchedulingDataHandler.handleApplyData(param);
     }
 
     /**
      * Inject data to Alerting Object
      * @param param
-     * @param paramValue
      * @param modelWrapper
      */
-    private void injectAlertingData(String param, String paramValue, ModelWrapper modelWrapper) {
+    private void applyAlertingData(String param, List<String> fileContent, ModelWrapper modelWrapper) {
         Alerting alerting = modelWrapper.getAlerting();
 
         AlertingDataHandler alertingDataHandler = new AlertingDataHandler();
         alertingDataHandler.setAlerting(alerting);
-        alertingDataHandler.setParamValue(paramValue);
+        alertingDataHandler.setFileContent(fileContent);
 
-        alertingDataHandler.handleInject(param);
+        alertingDataHandler.handleApplyData(param);
     }
 
     /**
      * Inject data to DimensionalHalo Object
      * @param param
-     * @param paramValue
      * @param modelWrapper
      */
-    private void injectDimensionalHaloData(String param, String paramValue, ModelWrapper modelWrapper) {
+    private void applyDimensionalHaloData(String param, List<String> fileContent, ModelWrapper modelWrapper) {
         DimensionalHalo dimensionalHalo = modelWrapper.getDimensionalHalo();
 
         DimensionalHaloDataHandler dimensionalHaloDataHandler = new DimensionalHaloDataHandler();
         dimensionalHaloDataHandler.setDimensionalHalo(dimensionalHalo);
-        dimensionalHaloDataHandler.setParamValue(paramValue);
+        dimensionalHaloDataHandler.setFileContent(fileContent);
 
         dimensionalHaloDataHandler.handleInject(param);
     }

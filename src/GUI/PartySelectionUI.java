@@ -76,7 +76,7 @@ public class PartySelectionUI {
     }
 
     /**
-     * handle saving into PartySelection Object
+     * handleInject saving into PartySelection Object
      * @param modelWrapper
      * @param preferredPartyGroup
      * @param preferredPartyDeck

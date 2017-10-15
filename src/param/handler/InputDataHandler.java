@@ -3,6 +3,7 @@ package param.handler;
 import model.Input;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,6 +15,10 @@ public class InputDataHandler {
 
     private String paramValue;
 
+    private int lineNum;
+
+    private List<String> fileContent;
+
     public void setInput(Input input) {
         this.input = input;
     }
@@ -22,7 +27,15 @@ public class InputDataHandler {
         this.paramValue = paramValue;
     }
 
-    private final Map<String, Runnable> FUNCTIONS = new HashMap<String, Runnable>() {{
+    public void setLineNum(int lineNum) {
+        this.lineNum = lineNum;
+    }
+
+    public void setFileContent(List<String> fileContent) {
+        this.fileContent = fileContent;
+    }
+
+    private final Map<String, Runnable> SET_OBJECT = new HashMap<String, Runnable>() {{
         put("DelayInMsBetweenMouseDownAndUp", () -> input.setDelayBetweenMouseDownAndUp(Long.parseLong(paramValue)));
         put("RandomDelayInMsBetweenMouseDownAndUp", () -> input.setRandomDelayBetweenDownAndUp(Long.parseLong(paramValue)));
         put("MouseSpeed", () -> input.setMouseSpeed(Long.parseLong(paramValue)));
@@ -31,11 +44,11 @@ public class InputDataHandler {
         put("WaitTimeInMsBeforeClickInput", () -> input.setWaitTimeBeforeClickInput(Long.parseLong(paramValue)));
     }};
 
-    public void handle(String param) {
-        if (!FUNCTIONS.containsKey(param)) {
+    public void handleInject(String param) {
+        if (!SET_OBJECT.containsKey(param)) {
             System.out.println("Unknown paramater: " + param);
             return;
         }
-        FUNCTIONS.get(param).run();
+        SET_OBJECT.get(param).run();
     }
 }

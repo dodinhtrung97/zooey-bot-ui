@@ -3,6 +3,7 @@ package param.handler;
 import model.Summon;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,6 +15,10 @@ public class SummonDataHandler {
 
     private String paramValue;
 
+    private int lineNum;
+
+    private List<String> fileContent;
+
     public void setSummon(Summon summon) {
         this.summon = summon;
     }
@@ -22,17 +27,25 @@ public class SummonDataHandler {
         this.paramValue = paramValue;
     }
 
-    private final Map<String, Runnable> FUNCTIONS = new HashMap<String, Runnable>() {{
+    public void setLineNum(int lineNum) {
+        this.lineNum = lineNum;
+    }
+
+    public void setFileContent(List<String> fileContent) {
+        this.fileContent = fileContent;
+    }
+
+    private final Map<String, Runnable> SET_OBJECT = new HashMap<String, Runnable>() {{
         put("PreferredSummons", () -> summon.setPreferredSummon(paramValue));
         put("DefaultSummonAttributeTab", () -> summon.setDefaultSummonTab(paramValue));
         put("RerollSummonWhenNoPreferredSummonWasFound", () -> summon.setRerollSummon(Boolean.parseBoolean(paramValue)));
     }};
 
-    public void handle(String param) {
-        if (!FUNCTIONS.containsKey(param)) {
+    public void handleInject(String param) {
+        if (!SET_OBJECT.containsKey(param)) {
             System.out.println("Unknown paramater: " + param);
             return;
         }
-        FUNCTIONS.get(param).run();
+        SET_OBJECT.get(param).run();
     }
 }

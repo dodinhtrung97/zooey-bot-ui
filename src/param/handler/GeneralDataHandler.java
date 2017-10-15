@@ -3,6 +3,7 @@ package param.handler;
 import model.General;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,6 +15,10 @@ public class GeneralDataHandler {
 
     private String paramValue;
 
+    private int lineNum;
+
+    private List<String> fileContent;
+
     public void setGeneral(General general) {
         this.general = general;
     }
@@ -22,7 +27,15 @@ public class GeneralDataHandler {
         this.paramValue = paramValue;
     }
 
-    private final Map<String, Runnable> FUNCTIONS = new HashMap<String, Runnable>() {{
+    public void setLineNum(int lineNum) {
+        this.lineNum = lineNum;
+    }
+
+    public void setFileContent(List<String> fileContent) {
+        this.fileContent = fileContent;
+    }
+
+    private final Map<String, Runnable> SET_OBJECT = new HashMap<String, Runnable>() {{
        put("Language", () -> general.setLanguage(paramValue));
        put("ChromeDevToolsWindowDockedOnTheRight", () -> general.setDevToolsDockedOnTheRight(Boolean.parseBoolean(paramValue)));
        put("MaxPageLoadDelayInMsBeforeRetry", () -> general.setMaxLoadDelay(Long.parseLong(paramValue)));
@@ -37,11 +50,11 @@ public class GeneralDataHandler {
        put("UseFullElixirsFirst", () -> general.setUseFullExFirst(Boolean.parseBoolean(paramValue)));
     }};
 
-    public void handle(String param) {
-        if (!FUNCTIONS.containsKey(param)) {
+    public void handleInject(String param) {
+        if (!SET_OBJECT.containsKey(param)) {
             System.out.println("Unknown paramater: " + param);
             return;
         }
-        FUNCTIONS.get(param).run();
+        SET_OBJECT.get(param).run();
     }
 }

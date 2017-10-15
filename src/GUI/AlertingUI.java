@@ -12,10 +12,17 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.Alerting;
 import model.ModelWrapper;
+import service.DataApplyService;
+import service.FileParseService;
+import service.impl.DataApplyServiceImpl;
+import service.impl.FileParseServiceImpl;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 /**
  * Created by Trung on 10/14/2017.
@@ -23,6 +30,7 @@ import java.nio.file.Paths;
 public class AlertingUI {
 
     private final FileChooser fileChooser = new FileChooser();
+    private final DataApplyService dataApplyService = new DataApplyServiceImpl();
     private File notificationSound;
     private String notificationSoundPath = "";
 
@@ -95,11 +103,25 @@ public class AlertingUI {
      * @param numNotification
      * @param maxSummonSelection
      */
-    private void handleSave(ModelWrapper modelWrapper, String soundPath, String numNotification, String maxSummonSelection) {
+    private void handleSave(ModelWrapper modelWrapper, String soundPath, String numNotification,
+                            String maxSummonSelection){
         Alerting alerting = modelWrapper.getAlerting();
+        List<String> fileContent = null;
 
         alerting.setCaptchaNotificationSoundPath(soundPath);
         alerting.setNumNotification(Long.parseLong(numNotification));
         alerting.setMaxNumSummonSelectionFailuresBeforePlayingSound(Long.parseLong(maxSummonSelection));
+
+        FileParseService fileParseService = new FileParseServiceImpl();
+        try {
+            fileContent = fileParseService.generateFileContentFromIni();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        dataApplyService.applyData("CaptchaNotificationSoundPath", fileContent, modelWrapper, "Alerting");
+        dataApplyService.applyData("NumNotifications", fileContent, modelWrapper, "Alerting");
+        dataApplyService.applyData("MaxNumSummonSelectionFailuresBeforePlayingSoundNotification", fileContent, modelWrapper, "Alerting");
     }
 }
