@@ -42,11 +42,11 @@ public class EventModeUI {
 
     private File eventLua;
 
-    private String eventLuaPath = "";
+    private String eventLuaPath;
 
     private File nightmareModeLua;
 
-    private String nightmareModeLuaPath = "";
+    private String nightmareModeLuaPath;
 
     /**
      * Draw Party Selection UI
@@ -76,6 +76,7 @@ public class EventModeUI {
         grid.add(new Label("Event raid URL:"), 0, 1);
 
         // LuaScript
+        eventLuaPath = eventMode.getEventRaidScript();
         Button eventLuaScript = new Button("Browse");
         eventLuaScript.setOnAction(e -> {
             eventLua = fileChooser.showOpenDialog(primaryStage);
@@ -97,6 +98,7 @@ public class EventModeUI {
         grid.add(new Label("Nightmare mode URL:"), 0, 3);
 
         // Nightmare LuaScript
+        nightmareModeLuaPath = eventMode.getNightmareModeScript();
         Button nightmareModeLuaScript = new Button("Browse");
         nightmareModeLuaScript.setOnAction(e -> {
             nightmareModeLua = fileChooser.showOpenDialog(primaryStage);

@@ -69,6 +69,7 @@ public class SlaveModeUI {
         grid.setPadding(new Insets(-7, 10, 5, 10));
 
         // Main Account Lua
+        mainLuaPath = slaveMode.getMainAccLua();
         Button browseMainLua = new Button("Browse");
         browseMainLua.setOnAction(e -> {
             mainLua = fileChooser.showOpenDialog(primaryStage);
@@ -83,6 +84,7 @@ public class SlaveModeUI {
         grid.add(new Label("Main Account Lua Script:"), 0, 1);
 
         // Slave Account Lua
+        slaveLuaPath = slaveMode.getSlaveAccLua();
         Button browseSlaveLua = new Button("Browse");
         browseSlaveLua.setOnAction(e -> {
             slaveLua = fileChooser.showOpenDialog(primaryStage);

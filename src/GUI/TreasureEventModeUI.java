@@ -73,6 +73,7 @@ public class TreasureEventModeUI {
         grid.add(new Label("Treasure Event raid URL:"), 0, 1);
 
         // LuaScript
+        treasureEventLuaPath = treasureEventMode.getTreasureEventModeScript();
         Button eventLuaScript = new Button("Browse");
         eventLuaScript.setOnAction(e -> {
             treasureEventLua = fileChooser.showOpenDialog(primaryStage);
@@ -109,6 +110,7 @@ public class TreasureEventModeUI {
         grid.add(new Label("Treasure Event Nightmare raid URL:"), 0, 5);
 
         // LuaScript
+        treasureEventNightmareLuaPath = treasureEventMode.getNightmareModeScript();
         Button treasureEventNightmareLuaScript = new Button("Browse");
         eventLuaScript.setOnAction(e -> {
             treasureEventNightmareLua = fileChooser.showOpenDialog(primaryStage);

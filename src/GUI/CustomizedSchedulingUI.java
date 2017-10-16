@@ -49,6 +49,8 @@ public class CustomizedSchedulingUI {
      */
     @SuppressWarnings("Duplicates")
     public VBox drawMainPane(Stage primaryStage, ModelWrapper modelWrapper) {
+        CustomizedScheduling customizedScheduling = modelWrapper.getCustomizedScheduling();
+
         VBox vBox = new VBox();
         vBox.setPrefWidth(500);
 
@@ -61,6 +63,7 @@ public class CustomizedSchedulingUI {
         grid.setPadding(new Insets(-7, 10, 5, 10));
 
         // LuaScript
+        schedulingLuaPath = customizedScheduling.getLuaScript();
         Button eventLuaScript = new Button("Browse");
         eventLuaScript.setOnAction(e -> {
             schedulingLua = fileChooser.showOpenDialog(primaryStage);

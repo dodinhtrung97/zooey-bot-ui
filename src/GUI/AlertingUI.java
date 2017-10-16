@@ -64,6 +64,7 @@ public class AlertingUI {
         grid.setPadding(new Insets(-7, 10, 5, 10));
 
         // LuaScript
+        notificationSoundPath = alerting.getCaptchaNotificationSoundPath();
         Button eventLuaScript = new Button("Browse");
         eventLuaScript.setOnAction(e -> {
             notificationSound = fileChooser.showOpenDialog(primaryStage);

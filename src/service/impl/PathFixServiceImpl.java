@@ -13,7 +13,7 @@ public class PathFixServiceImpl implements PathFixService {
      */
     @Override
     public String fixPath(String path) {
-        path = path.substring(3, path.length()-1);
+        path = path.substring(3, path.length());
         path = path.replace("\\", "/");
 
         return path;

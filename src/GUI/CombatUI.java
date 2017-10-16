@@ -86,6 +86,7 @@ public class CombatUI {
         grid.add(new Label("Min wait time after ability (ms):"), 0, 3);
 
         // LuaScript
+        luaPath = combat.getLuaScript();
         Button luaScript = new Button("Browse");
         luaScript.setOnAction(e -> {
             luaFile = fileChooser.showOpenDialog(primaryStage);
