@@ -15,8 +15,10 @@ import model.Combat;
 import model.ModelWrapper;
 import service.DataApplyService;
 import service.FileParseService;
+import service.PathFixService;
 import service.impl.DataApplyServiceImpl;
 import service.impl.FileParseServiceImpl;
+import service.impl.PathFixServiceImpl;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,6 +37,8 @@ public class CombatUI {
     private final FileParseService fileParseService = new FileParseServiceImpl();
 
     private final DataApplyService dataApplyService = new DataApplyServiceImpl();
+
+    private final PathFixService pathFixService = new PathFixServiceImpl();
 
     private File luaFile;
 
@@ -88,7 +92,7 @@ public class CombatUI {
             if (luaFile != null) {
                 Path p1 = Paths.get(Constant.ZOOEY_BOT_INI_ABSOLUTE);
                 Path p2 = Paths.get(luaFile.getAbsolutePath());
-                luaPath = p1.relativize(p2).toString();
+                luaPath = pathFixService.fixPath(p1.relativize(p2).toString());
             }
         });
 

@@ -12,8 +12,10 @@ import model.ModelWrapper;
 import model.TreasureEventMode;
 import service.DataApplyService;
 import service.FileParseService;
+import service.PathFixService;
 import service.impl.DataApplyServiceImpl;
 import service.impl.FileParseServiceImpl;
+import service.impl.PathFixServiceImpl;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,6 +34,8 @@ public class TreasureEventModeUI {
     private final FileParseService fileParseService = new FileParseServiceImpl();
 
     private final DataApplyService dataApplyService = new DataApplyServiceImpl();
+
+    private final PathFixService pathFixService = new PathFixServiceImpl();
 
     private File treasureEventLua;
 
@@ -75,7 +79,7 @@ public class TreasureEventModeUI {
             if (treasureEventLua != null) {
                 Path p1 = Paths.get(Constant.ZOOEY_BOT_INI_ABSOLUTE);
                 Path p2 = Paths.get(treasureEventLua.getAbsolutePath());
-                treasureEventLuaPath = p1.relativize(p2).toString();
+                treasureEventLuaPath = pathFixService.fixPath(p1.relativize(p2).toString());
             }
         });
 
@@ -111,7 +115,7 @@ public class TreasureEventModeUI {
             if (treasureEventNightmareLua != null) {
                 Path p1 = Paths.get(Constant.ZOOEY_BOT_INI_ABSOLUTE);
                 Path p2 = Paths.get(treasureEventNightmareLua.getAbsolutePath());
-                treasureEventNightmareLuaPath = p1.relativize(p2).toString();
+                treasureEventNightmareLuaPath = pathFixService.fixPath(p1.relativize(p2).toString());
             }
         });
 

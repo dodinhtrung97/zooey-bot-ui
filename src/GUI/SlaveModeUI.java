@@ -14,8 +14,10 @@ import model.ModelWrapper;
 import model.SlaveMode;
 import service.DataApplyService;
 import service.FileParseService;
+import service.PathFixService;
 import service.impl.DataApplyServiceImpl;
 import service.impl.FileParseServiceImpl;
+import service.impl.PathFixServiceImpl;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,6 +36,8 @@ public class SlaveModeUI {
     private final FileParseService fileParseService = new FileParseServiceImpl();
 
     private final DataApplyService dataApplyService = new DataApplyServiceImpl();
+
+    private final PathFixService pathFixService = new PathFixServiceImpl();
 
     private File mainLua;
 
@@ -71,7 +75,7 @@ public class SlaveModeUI {
             if (mainLua != null) {
                 Path p1 = Paths.get(Constant.ZOOEY_BOT_INI_ABSOLUTE);
                 Path p2 = Paths.get(mainLua.getAbsolutePath());
-                mainLuaPath = p1.relativize(p2).toString();
+                mainLuaPath = pathFixService.fixPath(p1.relativize(p2).toString());
             }
         });
 
@@ -85,7 +89,7 @@ public class SlaveModeUI {
             if (slaveLua != null) {
                 Path p1 = Paths.get(Constant.ZOOEY_BOT_INI_ABSOLUTE);
                 Path p2 = Paths.get(slaveLua.getAbsolutePath());
-                slaveLuaPath = p1.relativize(p2).toString();
+                slaveLuaPath = pathFixService.fixPath(p1.relativize(p2).toString());
             }
         });
 

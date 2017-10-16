@@ -13,8 +13,10 @@ import model.ModelWrapper;
 import model.SoloCoopMode;
 import service.DataApplyService;
 import service.FileParseService;
+import service.PathFixService;
 import service.impl.DataApplyServiceImpl;
 import service.impl.FileParseServiceImpl;
+import service.impl.PathFixServiceImpl;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,6 +35,8 @@ public class SoloCoopModeUI {
     private final FileParseService fileParseService = new FileParseServiceImpl();
 
     private final DataApplyService dataApplyService = new DataApplyServiceImpl();
+
+    private final PathFixService pathFixService = new PathFixServiceImpl();
 
     private File soloCoopLua;
 
@@ -63,7 +67,7 @@ public class SoloCoopModeUI {
             if (soloCoopLua != null) {
                 Path p1 = Paths.get(Constant.ZOOEY_BOT_INI_ABSOLUTE);
                 Path p2 = Paths.get(soloCoopLua.getAbsolutePath());
-                soloCoopLuaPath = p1.relativize(p2).toString();
+                soloCoopLuaPath = pathFixService.fixPath(p1.relativize(p2).toString());
             }
         });
 

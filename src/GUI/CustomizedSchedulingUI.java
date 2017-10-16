@@ -13,8 +13,10 @@ import model.CustomizedScheduling;
 import model.ModelWrapper;
 import service.DataApplyService;
 import service.FileParseService;
+import service.PathFixService;
 import service.impl.DataApplyServiceImpl;
 import service.impl.FileParseServiceImpl;
+import service.impl.PathFixServiceImpl;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,6 +35,8 @@ public class CustomizedSchedulingUI {
     private final FileParseService fileParseService = new FileParseServiceImpl();
 
     private final DataApplyService dataApplyService = new DataApplyServiceImpl();
+
+    private final PathFixService pathFixService = new PathFixServiceImpl();
 
     private File schedulingLua;
 
@@ -63,7 +67,7 @@ public class CustomizedSchedulingUI {
             if (schedulingLua != null) {
                 Path p1 = Paths.get(Constant.ZOOEY_BOT_INI_ABSOLUTE);
                 Path p2 = Paths.get(schedulingLua.getAbsolutePath());
-                schedulingLuaPath = p1.relativize(p2).toString();
+                schedulingLuaPath = pathFixService.fixPath(p1.relativize(p2).toString());
             }
         });
 

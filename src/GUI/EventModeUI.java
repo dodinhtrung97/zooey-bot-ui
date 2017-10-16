@@ -15,8 +15,10 @@ import model.EventMode;
 import model.ModelWrapper;
 import service.DataApplyService;
 import service.FileParseService;
+import service.PathFixService;
 import service.impl.DataApplyServiceImpl;
 import service.impl.FileParseServiceImpl;
+import service.impl.PathFixServiceImpl;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,6 +37,8 @@ public class EventModeUI {
     private final FileParseService fileParseService = new FileParseServiceImpl();
 
     private final DataApplyService dataApplyService = new DataApplyServiceImpl();
+
+    private final PathFixService pathFixService = new PathFixServiceImpl();
 
     private File eventLua;
 
@@ -78,8 +82,7 @@ public class EventModeUI {
             if (eventLua != null) {
                 Path p1 = Paths.get(Constant.ZOOEY_BOT_INI_ABSOLUTE);
                 Path p2 = Paths.get(eventLua.getAbsolutePath());
-                eventLuaPath = p1.relativize(p2).toString();
-                System.out.println(eventLuaPath);
+                eventLuaPath = pathFixService.fixPath(p1.relativize(p2).toString());
             }
         });
 
@@ -100,7 +103,7 @@ public class EventModeUI {
             if (nightmareModeLua != null) {
                 Path p1 = Paths.get(Constant.ZOOEY_BOT_INI_ABSOLUTE);
                 Path p2 = Paths.get(nightmareModeLua.getAbsolutePath());
-                nightmareModeLuaPath = p1.relativize(p2).toString();
+                nightmareModeLuaPath = pathFixService.fixPath(p1.relativize(p2).toString());
             }
         });
 
