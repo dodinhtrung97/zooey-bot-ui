@@ -112,7 +112,7 @@ public class TreasureEventModeUI {
         // LuaScript
         treasureEventNightmareLuaPath = treasureEventMode.getNightmareModeScript();
         Button treasureEventNightmareLuaScript = new Button("Browse");
-        eventLuaScript.setOnAction(e -> {
+        treasureEventNightmareLuaScript.setOnAction(e -> {
             treasureEventNightmareLua = fileChooser.showOpenDialog(primaryStage);
             if (treasureEventNightmareLua != null) {
                 Path p1 = Paths.get(Constant.ZOOEY_BOT_INI_ABSOLUTE);
@@ -149,7 +149,7 @@ public class TreasureEventModeUI {
         Button save = new Button();
         save.setText("SAVE");
         save.setPrefSize(180, 40);
-        save.setOnAction(e -> handleSave(modelWrapper, nightmareModeURL.getText(), treasureEventLuaPath, difficulty.getValue(),
+        save.setOnAction(e -> handleSave(modelWrapper, treasureEventRaidURL.getText(), treasureEventLuaPath, difficulty.getValue(),
                                         actionPointCost.getText(), nightmareModeURL.getText(), treasureEventNightmareLuaPath,
                                         nightmareModePreferredSummon.getText(), rerollForSummon.isSelected(),
                                         nightmareAtStart.isSelected()));
