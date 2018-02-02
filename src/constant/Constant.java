@@ -197,6 +197,7 @@ public class Constant {
     public static final Map<String, String> TREASURE_RAIDS = new LinkedHashMap<String, String>(){{
         put("Very Hard", "vh");
         put("Extreme", "ex");
+        put("Impossible", "impossible");
         put("Guild War", "gw");
         put("Guild War Day 2 NM 90", "gw-day-2-nm-90");
         put("Guild War Day 2 NM 95", "gw-day-2-nm-95");
