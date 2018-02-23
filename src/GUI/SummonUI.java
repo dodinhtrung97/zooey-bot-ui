@@ -54,7 +54,7 @@ public class SummonUI {
 
         // DefaultSummonTab
         ChoiceBox<String> defaultSummonTab = new ChoiceBox<>();
-        defaultSummonTab.getItems().addAll("Fire", "Water", "Earth", "Wind", "Light", "Dark");
+        defaultSummonTab.getItems().addAll("Fire", "Water", "Earth", "Wind", "Light", "Dark", "Misc");
         defaultSummonTab.setValue(summon.getDefaultSummonTab());
 
         grid.add(defaultSummonTab,1,2);
